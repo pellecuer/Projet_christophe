@@ -43,7 +43,7 @@ class IndexController extends AbstractController
         $projects = $project->findAll();        
 
         $currentMonth = new \DateTime('now');
-        $startProjectDate = new \DateTimeImmutable('2019-01-01');
+        $startProjectDate = new \DateTimeImmutable('2018-01-01');
         $endProjectDate = new \DateTime('2019-12-31');
         $intervalOneMonth = new \DateInterval('P1M');
 
@@ -55,7 +55,7 @@ class IndexController extends AbstractController
             $dt = $dt->add($intervalOneMonth);
         }     
 
-        //$rrayProfiles[]
+        //$arrayProfiles[]
         $arrayProfiles = [];
         $profiles = $project->findProfiles();
         foreach($profiles as $Eachprofile) {            
@@ -70,17 +70,20 @@ class IndexController extends AbstractController
                 $col2[] = $rank;
             }           
             $works[] = [$profile, $col2];                      
-        }
-        // dump($works);die; 
+        }        
 
         //Array Key of current Month
         foreach ($calendars as $calendar)
             $stringCalendars[] = $calendar->format('M-y'); 
-        $key = array_search($currentMonth->format('M-y'), $stringCalendars)+1;             
+        $key = array_search($currentMonth->format('M-y'), $stringCalendars)+1; 
+        
+        $nbColumns = count($stringCalendars)+1;
+        // dump($nbColumns);die;
 
         return $this->render('index/show.html.twig', [            
             'calendars' => $stringCalendars,
             'key' => $key,
+            'nbColumns' =>$nbColumns,
             'currentMonth' => $currentMonth->format('M-y'),
             'works' => $works
         ]);
@@ -132,8 +135,7 @@ class IndexController extends AbstractController
             ['Projet Mobile Android', 3, 1, 2, 2, 0, 2, 3, 4, 4, 4],          
         ];  
 
-        $key = array_search($currentMonth->format('M-y'), $calendars)+1;
-        dump($key);die;
+        $key = array_search($currentMonth->format('M-y'), $calendars)+1;       
 
         return $this->render('index/index.html.twig', [            
             'calendars' => $calendars,

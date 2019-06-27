@@ -85,13 +85,13 @@
             
 
             //initialization 11 colums array
-            var key = parseInt($('#key').text());            
+            var key = parseInt($('#key').text());
+            var nbColumns = parseInt($('#nbColumns').text());         
             var range = parseInt(5);
-            var keyRange = key+range;
+            var keyRange = key+range;  
             
             
-            
-            for ( var i=1; i<11; i++ ){
+            for ( var i=1; i<nbColumns; i++ ){
                table.column( i ).visible( false, false );
             }
             for ( var i=key; i<keyRange; i++ ){
@@ -102,11 +102,11 @@
             $(".next").on("click", function(e){
                 e.preventDefault();
 
-                for ( var i=1; i<11; i++){
+                for ( var i=1; i<nbColumns; i++){
                 table.column( i ).visible( false, false );
                 }
 
-                if (keyRange<11) {
+                if (keyRange<nbColumns){
                    key++;
                    keyRange++;     
                 }
@@ -122,7 +122,7 @@
             //button previous
             $(".previous").on("click", function(e){
                 e.preventDefault();
-                for ( var i=1; i<11; i++){
+                for ( var i=1; i<nbColumns; i++){
                 table.column( i ).visible( false, false );
                 }
 
@@ -158,8 +158,6 @@
                     }
                 });
             });
-             
-
         });
 
         </script>       

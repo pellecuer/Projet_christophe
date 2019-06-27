@@ -26,9 +26,10 @@ class ProjectRepository extends ServiceEntityRepository
     public function findOneByDateByProfile($date, $profile)
     {
         $thisMonth = $date->format('F');
-        $startOfMonth = new \dateTime('first day of' . $thisMonth);
+        $thisyear = $date->format('Y');
+        $startOfMonth = new \dateTime('first day of' . $thisMonth . $thisyear);
         $dt =clone $date; 
-        $endOfMonth = new \dateTime('last day of' . $thisMonth);
+        $endOfMonth = new \dateTime('last day of' . $thisMonth. $thisyear);
 
         return $this->createQueryBuilder('p')
 
