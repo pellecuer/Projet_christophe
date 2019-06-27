@@ -19,6 +19,45 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+
+    /**
+    * @return Project[] Returns an array of Project objects
+    */    
+    public function findOneByDateByProfile($date, $profile)
+    {
+        $thisMonth = $date->format('F');
+        $startOfMonth = new \dateTime('first day of' . $thisMonth);
+        $dt =clone $date; 
+        $endOfMonth = new \dateTime('last day of' . $thisMonth);
+
+        return $this->createQueryBuilder('p')
+
+            ->andWhere('p.date BETWEEN :start AND :end')
+            ->andWhere('p.profile = :profile')  
+            ->setParameter('start', $startOfMonth)
+            ->setParameter('end', $endOfMonth)
+            ->setParameter('profile', $profile)
+            ->orderBy('p.date', 'ASC')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }    
+
+     /**
+    * @return Project[] Returns an array of Project objects
+    */    
+    public function findProfiles()
+    {
+        return $this->createQueryBuilder('p')
+            ->select ('p.profile') 
+            ->distinct('p.profile')
+            ->getQuery()
+            ->getResult()
+        ;
+    }   
+
+
+
     // /**
     //  * @return Project[] Returns an array of Project objects
     //  */

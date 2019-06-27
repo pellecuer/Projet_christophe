@@ -34,10 +34,16 @@
             </tr>
         </thead>
         <tbody>
-            {% for work in works %}
-            <tr>{% for row in work %}
-                <td class="edit-for">{{ row }}</td>
-                {% endfor %} 
+            {% for row in works %}
+            <tr>
+                <td class="profile">{{ row.0 }}</td>                
+                {% for rank in row.1 %}
+                    {% if rank is defined and not null %}
+                        <td class="edit-for">{{ rank }}</td>
+                    {% else %}
+                        <td class="edit-for"></td>
+                    {% endif %}
+                {% endfor %}
             </tr>
             {% endfor %} 
         </tbody>

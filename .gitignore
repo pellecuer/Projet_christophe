@@ -6,6 +6,8 @@
 /public/bundles/
 /var/
 /vendor/
+.env
+/config/packages/doctrine.yaml
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
