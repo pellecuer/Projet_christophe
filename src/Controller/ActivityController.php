@@ -12,12 +12,12 @@ use Doctrine\DBAL\Driver\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use \PDO;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\Project;
-use App\Repository\ProjectRepository;
+use App\Entity\Activity;
+use App\Repository\ActivityRepository;
 
 
 
-class IndexController extends AbstractController
+class ActivityController extends AbstractController
 {
     
     public function __construct(EntityManagerInterface $em)
@@ -36,12 +36,10 @@ class IndexController extends AbstractController
     // }
 
     /**
-     * @Route("/show", name="info")
+     * @Route("/show", name="show")
      */
-    public function show(ProjectRepository $project)
-    {   
-        $projects = $project->findAll();        
-
+    public function show(ActivityRepository $activity)
+    {               
         $currentMonth = new \DateTime('now');
         $startProjectDate = new \DateTimeImmutable('2018-01-01');
         $endProjectDate = new \DateTime('2019-12-31');
@@ -56,8 +54,8 @@ class IndexController extends AbstractController
         }     
 
         //$arrayProfiles[]
-        $arrayProfiles = [];
-        $profiles = $project->findProfiles();
+        $arrayProfiles = [];        
+        $profiles = $activity->findProfiles();
         foreach($profiles as $Eachprofile) {            
             $arrayProfiles[] = $Eachprofile['profile'];            
         } 
@@ -65,7 +63,7 @@ class IndexController extends AbstractController
         foreach($arrayProfiles as $profile){  
             $col2 = [];
             foreach ($calendars as $date) {
-                $data = $project->findOneByDateByProfile($date, $profile);                 
+                $data = $activity->findOneByDateByProfile($date, $profile);                 
                 $rank = $data ? $data->getRank(): NULL;            
                 $col2[] = $rank;
             }           
@@ -95,10 +93,9 @@ class IndexController extends AbstractController
         /**
      * @Route("/all", name="all")
      */
-    public function showAll(ProjectRepository $project)
+    public function showAll(ActivityRepository $activity)
     {   
-        $projects = $project->findAll();
-        dump ($projects);die;        
+        $activity = $activity->findAll();         
 
         return new Response();
     }
@@ -120,7 +117,6 @@ class IndexController extends AbstractController
             $calendars[] = $dt->format('M-y');            
             $dt = $dt->add($intervalOneMonth);
         }
-        //get projects
 
 
         //works
@@ -193,22 +189,22 @@ class IndexController extends AbstractController
      */
     public function new()
     {
-        $project = new Project;
-        $project->setName('Projet2');
-        $project->setProfile('Junior');
+        $activity = new Activity;
+        $activity->setName('Projet2');
+        $activity->setProfile('Junior');
         $dateTime = new \DateTime('2019-02-05 12:00:00');
-        $project ->setDate($dateTime);
-        $project ->setRank(4);
-        $project->setStatus('Prévisionnel');
-        $project->setType('Quality E');
+        $activity ->setDate($dateTime);
+        $activity ->setRank(4);
+        $activity->setStatus('Prévisionnel');
+        $activity->setType('Quality E');
 
         //dump($project);die;
 
-        $this->em->persist($project);
+        $this->em->persist($activity);
         $this->em->flush();
         $this->addFlash('success', 'Projet crée avec succès');
 
-        return new Response('Nouveau projet enregistré '. $project->getId());
+        return new Response('Nouveau projet enregistré '. $activity->getId());
 
     }
 
