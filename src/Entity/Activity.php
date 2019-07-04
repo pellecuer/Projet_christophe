@@ -14,13 +14,8 @@ class Activity
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
+    private $id; 
+    
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -30,7 +25,6 @@ class Activity
      * @ORM\Column(type="datetime")
      */
     private $date;
-
 
     public function __construct()
     {
@@ -52,21 +46,14 @@ class Activity
      */
     private $type;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="Activity")
+     */
+    private $project;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getProfile(): ?string
@@ -125,6 +112,18 @@ class Activity
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): self
+    {
+        $this->project = $project;
 
         return $this;
     }

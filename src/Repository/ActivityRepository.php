@@ -23,7 +23,7 @@ class ActivityRepository extends ServiceEntityRepository
     /**
     * @return Activity[] Returns an array of Activity objects
     */    
-    public function findOneByDateByProfile($date, $profile)
+    public function findOneByDateByProjectByProfile($date, $project, $profile)
     {
         $thisMonth = $date->format('F');
         $thisyear = $date->format('Y');
@@ -33,9 +33,11 @@ class ActivityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
 
             ->andWhere('a.date BETWEEN :start AND :end')
-            ->andWhere('a.profile = :profile')  
+            ->andWhere('a.project = :project')
+            ->andwhere('a.profile = :profile')  
             ->setParameter('start', $startOfMonth)
             ->setParameter('end', $endOfMonth)
+            ->setParameter('project', $project)
             ->setParameter('profile', $profile)
             ->orderBy('a.date', 'ASC')
             ->getQuery()

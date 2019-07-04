@@ -3,59 +3,119 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block body %}
-<div class="container-fluid">    
-    <div class="jumbotron bg-dark">
-        <h1 class="text-center text-white">PROJET NUMERO1</h1>       
-    </div>    
-</div>
-<div class="container mt-5 invisible" id="response">
-    <div class="alert alert-success">Vous avez attribué la note de <span class="badge badge-secondary" id="rank"></span> </div>
-</div>
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message}}
-    </div> 
-{% endfor %}
 
-<div class="invisible" id="key">{{ (key) }}</div>
-<div class="invisible" id="nbColumns">{{ (nbColumns) }}</div>
-<div class="container">   
-    <div class="mb-5 text-right">
-        <button type="button" class="btn btn-primary previous"><i class="fas fa-step-backward"></i></button>
-        <span class="" id="currentMonth">{{ currentMonth }}</span>
-        <div class="btn btn-primary next"><i class="fas fa-step-forward"></i></div>    
+<div class="mx-5 conteneurAll">
+    {# Jumbotron #}
+    <div class="container-fluid">
+        <div class="jumbotron mt-3">
+            <h1 class="display-4">Gestion de projet</h1>
+            <p class="lead">Plannification de temps previsionnel et réalisé</p>            
+        </div>
     </div>
-    <table id="example" class="display" style="width:100%">
-        <thead>           
-            <tr>
-                <th>Profil</th>                               
-                {% for calendar in calendars %}
-                    <th>{{ calendar }}</th>                    
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in works %}
-            <tr>
-                <td class="profile">{{ row.0 }}</td>                
-                {% for rank in row.1 %}
-                    {% if rank is defined and not null %}
-                        <td class="edit-for">{{ rank }}</td>
-                    {% else %}
-                        <td class="edit-for"></td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-            {% endfor %} 
-        </tbody>
-        {# <tfoot>
-            <tr>
-                <th></th>
-                {% for calendar in calendars %}
-                    <th>{{ calendar }}</th>                    
-                {% endfor %}
-            </tr>
-        </tfoot>        #}
-    </table> 
-</div>
+
+    {# navbar #} 
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"><i class="fas fa-home"></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="#" data-toggle="collapse" data-target="#search-panel"><i class="fas fa-search"></i><span class="ml-1">Rechercher</span></a>
+                    <a class="nav-item nav-link" href={{ path('project_new') }}><i class="fas fa-plus"></i><span class="ml-1">Ajouter</span></a>
+                    <a class="nav-item nav-link disabled" href="#">Disabled</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    {# Search #}
+    <div class="container mt-4 collapse" id="search-panel">
+        <div class="jumbotron">
+            <h1 class="mb-5 text-center"><i class="fas fa-search"></i><span class="ml-1">Trouvez un projet</span></h1>
+            <form>
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" placeholder="Entrez une date">
+                    </div>
+                    <div class="col-auto text-center ">et / ou</div>
+                    <div class="col-sm-4">
+                        <input type="select" id="recherche" class="form-control" placeholder="Premières lettres du projet">
+                    </div>
+                     <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                     </div>                   
+                </div>
+               
+            </form>
+        </div>
+    </div>
+    
+    
+
+    
+
+    {# Messages flash #}            
+    <div class="invisible" id="response">
+        <div class="alert alert-success">Vous avez attribué la note de <span class="badge badge-secondary" id="rank"></span> </div>
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message}}
+        </div>
+        {% endfor %}
+    </div>
+
+    {# Invisible key #}
+    <div class="invisible" id="key">{{ (key) }}</div>
+    <div class="invisible" id="nbColumns">{{ (nbColumns) }}</div>
+
+    {# datatable and bottoms #}
+    <div class="container">
+        <h1 class="text-center" id ="projectName">{{ projectName }}</h1>   
+        <div class="mb-5 mx-5 text-right">
+            <button type="button" class="btn btn-primary previous"><i class="fas fa-step-backward"></i></button>
+            <span class="" id="currentMonth">{{ currentMonth }}</span>
+            <div class="btn btn-primary next"><i class="fas fa-step-forward"></i></div>    
+        </div>
+        <table id="example" class="display" style="width:100%">
+            <thead>           
+                <tr>
+                    <th>Profil</th>                               
+                    {% for calendar in calendars %}
+                        <th>{{ calendar }}</th>                    
+                    {% endfor %}
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in activities %}
+                <tr>
+                    <td class="profile edit-for">{{ row.0 }}</td>                         
+                    {% for Activity in row.1 %}
+                        {% if Activity %}
+                            <td class="edit-for" id = "{{ Activity.id }}">{{ Activity.rank }}</td>
+                        {% else %}
+                            <td class="edit-for" id = "0" ></td>
+                        {% endif %}
+                    {% endfor %}
+                    <td class="trash"><i class="fas fa-trash-alt"></i></td>
+                    
+                </tr>   
+                {% endfor %} 
+            </tbody>
+            {# <tfoot>
+                <tr>
+                    <th></th>
+                    {% for calendar in calendars %}
+                        <th>{{ calendar }}</th>                    
+                    {% endfor %}
+                </tr>
+            </tfoot>        #}
+        </table>
+        <button class="btn btn-primary addRow" type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>    
+    </div>
+
 {% endblock %}
