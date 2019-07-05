@@ -39,6 +39,11 @@
         <script>
         $(document).ready(function() {
 
+             //table row            
+            // $('#example tbody').on( 'click', 'tr', function () {                
+            //    alert( table.row( this ).data() );
+            //} );
+
             //function autocomplete search
             $(function (){
                  var availableTags = [
@@ -82,59 +87,109 @@
             mouseLeave();
             tabNext();
             tabPrevious();
+            addClassEditFor();
+
+            //Function addClass edit-for on all cell not trash
+            function addClassEditFor() {
+                $("#example tbody").on( "click", "td:not(.trash)", function(){
+                   $("td").addClass("edit-for");
+                });
+            }
+
+            $("p").hide()
+
+            //addClass .trash on last cell
+            function addClassTrash() {
+                $("#example tbody").on( "click", "td", function(){
+                   $("td").removeClass("edit-for").addClass("trash");
+                });
+            }
 
 
             //Function editable
             function editable() {
-                $(".edit-for" ).on( "click", function(){
+                $("#example tbody").on("click", "td.edit-for", function(){
                     $(this).css( "background-color", "#C6E2FF");                            
-                    $(this).attr('contenteditable', 'true');
+                    $(this).attr("contenteditable", "true");
                     $(this).focus();
                 });
             }
 
             //Function Empty on DoubleClic
             function empty(){
-                $(".edit-for" ).on( "dblclick", function(){
+                $("#example tbody").on( "dblclick", "td.edit-for", function(){
                     $( this).empty();
                 });
             }
 
             //Function Mouse leave
             function mouseLeave() {
-                $(".edit-for" ).on( "mouseleave", function(){
+                $("#example tbody").on( "mouseleave", "td.edit-for", function(){
                     $( this).css( "background-color", "transparent");
                     //$('html,body').css('cursor','crosshair');
                     //$(this).attr('contenteditable', 'false');
                 });
             }
 
+            //Function Css on Tab
+            function cssOnTab(nextOrPrevious){
+                nextOrPrevious.css("background-color", "#C6E2FF");
+                nextOrPrevious.attr("contenteditable", "true");                     
+                nextOrPrevious.focus();
+                nextOrPrevious
+            }
+
             //Function tabNext
             function tabNext(){
-                 $('td.edit-for').on( "keydown", function(e){
-                 var keyCode = e.keyCode || e.wich;                 
-                if ((e.keyCode === 9) || (e.keyCode === 39) || (e.keyCode === 13)) {
-                    e.preventDefault();
-                    $( this).css( "background-color", "transparent");                   
-                     var next = $(this).closest('td').next('td.edit-for');
-                     next.css("background-color", "#C6E2FF");
-                     next.attr('contenteditable', 'true');                     
-                     next.focus();
-                    } 
-                });
+                 $("#example tbody").on( "keydown", "td.edit-for", function(e){
+                    var keyCode = e.keyCode || e.wich;                 
+                    if ((e.keyCode === 9) || (e.keyCode === 39) || (e.keyCode === 13)) {
+                        e.preventDefault();
+                        $( this).css( "background-color", "transparent"); 
+                        var nextOrPrevious = $(this).closest('td').next("td.edit-for");
+                        cssOnTab(nextOrPrevious);
+
+                        //Update on next, previous, enter                    
+                        var rank = $(this).html();                                 
+                        var id = $(this).attr('id');
+                        var emptyMonth = table.column(this).title();                                      
+                        var projectName = $('#projectName').text();                                   
+                        var profile = table.row( 0 ).data()[0];                                                                          
+                                
+                        $.ajax({
+                            url:'/activity/update',
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                "rank": rank,
+                                "id": id,
+                                "emptyMonth": emptyMonth,                            
+                                "projectName": projectName,
+                                "profile": profile
+                            },
+                            async: true,
+                            success: function (data)
+                            {
+                                console.log(data);
+                                $( '#rank' ).text(data.rank);
+                                $('#response').addClass("visible").removeClass("invisible");;                       
+                            }
+                        });
+                    }
+                 })
             }
+
+                    
 
             //Function tabPrevious    
             function tabPrevious(){
-                $('td.edit-for').on( "keydown", function(e){
+                $('#example tbody').on( "keydown", "td.edit-for", function(e){
                  var keyCode = e.keyCode || e.wich;                 
                 if (e.keyCode === 37 ) {
                     e.preventDefault();
                     $( this).css( "background-color", "transparent");                   
-                     var next = $(this).closest('td').prev('td.edit-for');
-                     next.css("background-color", "#C6E2FF");
-                     next.attr('contenteditable', 'true');                     
-                     next.focus();
+                     var prev = $(this).closest('td').prev('td.edit-for');
+                    cssOnTab(nextOrPrevious);                    
                     } 
                 });
             }
@@ -143,52 +198,13 @@
            
 
             
-            //addRow
-            $('.addRow').on( 'click', function (e) {
-                e.preventDefault();
+           
 
-                //Rajouter la mise en mémoire du index, 
-                //Puis rendre visible tout
-                var rowHtml = $("#example").find("tr")[1].outerHTML;
-                $("#example").find('tbody').append(rowHtml);
-                editable();
-                empty();
-                mouseLeave();
-                tabNext();
-                tabPrevious();
-            } );
-
-            //Update on next, previous, enter            
-            $("td.edit-for").on( "keydown", function(e){
-                var keyCode = e.keyCode || e.wich;                 
-                if ((e.keyCode === 9) || (e.keyCode === 39) || (e.keyCode === 13) || (e.keyCode === 37 )){                    
-                    var rank = $(this).html();                                 
-                    var id = $(this).attr('id');
-                    var emptyMonth = table.column(this).title();                                      
-                    var projectName = $('#projectName').text();                                   
-                    var profile = table.row( 0 ).data()[0];                                      
-                               
-                    $.ajax({
-                        url:'/activity/update',
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            "rank": rank,
-                            "id": id,
-                            "emptyMonth": emptyMonth,                            
-                            "projectName": projectName,
-                            "profile": profile
-                        },
-                        async: true,
-                        success: function (data)
-                        {
-                            console.log(data);
-                            $( '#rank' ).text(data.rank);
-                            $('#response').addClass("visible").removeClass("invisible");;                       
-                        }
-                    });                    
-                } 
-            });
+                       
+            
+                                  
+                
+           
 
            
             
@@ -202,6 +218,7 @@
                     //ajax:'/ajax',
             });
 
+           
 
             
 
@@ -276,6 +293,63 @@
                 var currentMonth = table.column( key ).title();
                 $('#currentMonth').text(currentMonth);
             });
+
+
+             //addRow
+            $('.addRow').on( 'click', function (e) {
+                e.preventDefault();
+
+                //Rajouter la mise en mémoire du index, 
+                //Puis rendre visible tout
+                
+                //initialization 11 colums array
+                var key = parseInt($('#key').text());
+                var nbColumns = parseInt($('#nbColumns').text());         
+                var range = parseInt(5);
+                var keyRange = key+range;
+                
+
+                //Set all columns visible and Copy it
+                for ( var i=1; i<nbColumns; i++ ){
+                table.column( i ).visible( true, true );
+                }
+
+                //addRow and copy last
+                var col = ["profil"];
+                for (i= 0; i<nbColumns-1; i++) {
+                   col.push('test');  
+                }
+                col.push('<i class="fas fa-trash-alt"></i>')                
+                var rowNode = table.row.add(col).draw().node();
+                
+                $(rowNode).find('td').eq(-1).addClass('trash');
+
+                //add last td trash class + fontawesome
+
+                //set each td of this row on class editfor
+                    //
+                    //nbRows = table.rows().count() - 1;                              
+                    //var row = table.row(nbRows);                 
+                    //var td = tr.child();
+                    //alert(td);
+                    //td.addClass('edit-for');
+                                 
+                    
+                    //each
+                    //td.edit-for
+                    //add class
+                
+
+                //set all columns invisible and make visible from index
+                for ( var i=1; i<nbColumns; i++ ){
+               table.column( i ).visible( false, false );
+                }
+                for ( var i=key; i<keyRange; i++ ){
+                table.column( i ).visible( true, true );               
+                }
+            });
+
+            
 
             
         });
