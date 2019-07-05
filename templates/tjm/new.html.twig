@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Tjm{% endblock %}
+
+{% block body %}
+    <h1>Create new Tjm</h1>
+
+    {{ include('tjm/_form.html.twig') }}
+
+    <a href="{{ path('tjm_index') }}">back to list</a>
+{% endblock %}

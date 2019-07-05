@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container mt-4" id="search-panel">
+    <div class="jumbotron">
+        <h1 class="mb-5 text-center"><i class="fas fa-search"></i><span class="ml-1">Trouvez un projet</span></h1>
+        <form>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" placeholder="Entrez une date">
+                </div>
+                <div class="col-auto text-center ">et / ou</div>
+                <div class="col-sm-4">
+                    <input type="select" id="recherche" class="form-control" placeholder="Premières lettres du projet">
+                </div>
+                    <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                    </div>                   
+            </div>               
+        </form>
+    </div>        
+</div>
+
+<div class="container lastProjects">
+    <h5>Les 5 derniers projets</h5>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Code</th>
+            <th scope="col">Date de début</th>
+            <th scope="col">Date de fin</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <th scope="row">Amilnote</th>
+            <td>AM</td>
+            <td>Janvier 2012</td>
+            <td>Janvier 2015</td>
+            </tr>
+            <tr>
+            <th scope="row">Babiltone</th>
+            <td>BAB</td>
+            <td>Mars 2015</td>
+            <td>Avril 2015</td>
+            </tr>
+            <tr>
+            <th scope="row">CRM V3</th>
+            <td>CRM</td>
+            <td>Septembre 2018</td>
+            <td>Décembre 2018</td>
+            </tr>
+            <th scope="row">Amilapp</th>
+            <td>LAP</td>
+            <td>Septembre 2018</td>
+            <td>Janvier 2019</td>
+            </tr>
+            <th scope="row">SIRH</th>
+            <td>RH</td>
+            <td>Septembre 2018</td>
+            <td>Mars 2019</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

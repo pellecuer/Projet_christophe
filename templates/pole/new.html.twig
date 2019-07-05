@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Pole{% endblock %}
+
+{% block body %}
+    <h1>Create new Pole</h1>
+
+    {{ include('pole/_form.html.twig') }}
+
+    <a href="{{ path('pole_index') }}">back to list</a>
+{% endblock %}

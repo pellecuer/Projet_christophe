@@ -27,17 +27,8 @@ class Project
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $code;
+    private $code;   
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $cost;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -54,9 +45,15 @@ class Project
      */
     private $Activity;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="project")
+     */
+    private $tjm;
+
     public function __construct()
     {
         $this->Activity = new ArrayCollection();
+        $this->tjm = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,29 +85,7 @@ class Project
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getCost(): ?int
-    {
-        return $this->cost;
-    }
-
-    public function setCost(int $cost): self
-    {
-        $this->cost = $cost;
-
-        return $this;
-    }
+    
 
     public function getStartDate(): ?\DateTimeInterface
     {
@@ -161,6 +136,37 @@ class Project
             // set the owning side to null (unless already changed)
             if ($activity->getProject() === $this) {
                 $activity->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|tjm[]
+     */
+    public function getTjm(): Collection
+    {
+        return $this->tjm;
+    }
+
+    public function addTjm(Tjm $tjm): self
+    {
+        if (!$this->tjm->contains($tjm)) {
+            $this->tjm[] = $tjm;
+            $tjm->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTjm(Tjm $tjm): self
+    {
+        if ($this->tjm->contains($tjm)) {
+            $this->tjm->removeElement($tjm);
+            // set the owning side to null (unless already changed)
+            if ($tjm->getProject() === $this) {
+                $tjm->setProject(null);
             }
         }
 

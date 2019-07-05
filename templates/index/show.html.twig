@@ -4,33 +4,7 @@
 
 {% block body %}
 
-<div class="mx-5 conteneurAll">
-    {# Jumbotron #}
-    <div class="container-fluid">
-        <div class="jumbotron mt-3">
-            <h1 class="display-4">Gestion de projet</h1>
-            <p class="lead">Plannification de temps previsionnel et réalisé</p>            
-        </div>
-    </div>
 
-    {# navbar #} 
-    <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"><i class="fas fa-home"></i></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="#" data-toggle="collapse" data-target="#search-panel"><i class="fas fa-search"></i><span class="ml-1">Rechercher</span></a>
-                    <a class="nav-item nav-link" href={{ path('project_new') }}><i class="fas fa-plus"></i><span class="ml-1">Ajouter</span></a>
-                    <a class="nav-item nav-link disabled" href="#">Disabled</a>
-                </div>
-            </div>
-        </nav>
-    </div>
 
     {# Search #}
     <div class="container mt-4 collapse" id="search-panel">
@@ -93,7 +67,7 @@
             <tbody>
                 {% for row in activities %}
                 <tr>
-                    <td class="profile edit-for">{{ row.0 }}</td>                         
+                    <td class="profile">{{ row.0 }}</td>                         
                     {% for Activity in row.1 %}
                         {% if Activity %}
                             <td class="edit-for" id = "{{ Activity.id }}">{{ Activity.rank }}</td>

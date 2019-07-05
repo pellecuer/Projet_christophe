@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tjm{% endblock %}
+
+{% block body %}
+    <h1>Tjm</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tjm.id }}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>{{ tjm.amount }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tjm_index') }}">back to list</a>
+
+    <a href="{{ path('tjm_edit', {'id': tjm.id}) }}">edit</a>
+
+    {{ include('tjm/_delete_form.html.twig') }}
+{% endblock %}

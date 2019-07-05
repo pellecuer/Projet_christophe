@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Tjm{% endblock %}
+
+{% block body %}
+    <h1>Edit Tjm</h1>
+
+    {{ include('tjm/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('tjm_index') }}">back to list</a>
+
+    {{ include('tjm/_delete_form.html.twig') }}
+{% endblock %}

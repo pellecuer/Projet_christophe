@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tjm index{% endblock %}
+
+{% block body %}
+    <h1>Tjm index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Amount</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tjm in tjms %}
+            <tr>
+                <td>{{ tjm.id }}</td>
+                <td>{{ tjm.amount }}</td>
+                <td>
+                    <a href="{{ path('tjm_show', {'id': tjm.id}) }}">show</a>
+                    <a href="{{ path('tjm_edit', {'id': tjm.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('tjm_new') }}">Create new</a>
+{% endblock %}

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        {# <link rel="stylesheet" href="/assets/css/style.css">
+        <link rel="stylesheet" href="/assets/css/style.css">
         {# <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> #}
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css"/>      
         {# <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
@@ -17,10 +17,40 @@
         
         {% block stylesheets %}{% endblock %}
     </head>
-    <body>       
+    <body>
+        <div class="mx-5 conteneurAll">
+            {# Jumbotron #}
+            <div class="container-fluid">
+                <div class="jumbotron mt-3">
+                    <h1 class="display-4">Gestion de projet</h1>
+                    <p class="lead">Plannification de temps previsionnel</p>            
+                </div>
+            </div>
 
-
+            {# navbar #} 
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href={{ path('home') }}><i class="fas fa-home"></i><span class="ml-1">Accueil</span></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">                    
+                            <a class="nav-item nav-link" href={{ path('home') }}><i class="fas fa-search"></i><span class="ml-1">Rechercher un projet</span></a>
+                            <a class="nav-item nav-link" href={{ path('project_new') }}><i class="fas fa-plus"></i><span class="ml-1">Ajouter un projet</span></a>
+                            <a class="nav-item nav-link" href={{ path('project_index') }}><i class="fas fa-edit"></i><span class="ml-1">Editer un projet</span></a>
+                            <a class="nav-item nav-link" href='#'><i class="fas fa-user"></i></i><span class="ml-1">Collaborateurs</span></a>                   
+                        </div>
+                    </div>
+                </nav>
+            </div>
         {% block body %}{% endblock %}
+        <div class="footer bg-dark">
+            <p class= "text-white text-center"> <i class="far fa-copyright"></i> <span class="ml-1">Amiltone 2019 - Tous droits réservés </span> </p>
+        </div>
+        </div>
+
        <script src="https://code.jquery.com/jquery-3.3.1.js"></src>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -59,7 +89,7 @@
             });
 
             //function autocomplete search
-            $(function (){
+            function autocomplete(){
                  var profiles = [
                     "Junior",
                     "Design",
@@ -76,7 +106,7 @@
                 $( ".profile" ).autocomplete({
                 source: profiles
                 });
-            });            
+            };           
             
                     
                     
@@ -87,28 +117,15 @@
             mouseLeave();
             tabNext();
             tabPrevious();
-            addClassEditFor();
+            autocomplete();
+            //addClassEditFor();
 
-            //Function addClass edit-for on all cell not trash
-            function addClassEditFor() {
-                $("#example tbody").on( "click", "td:not(.trash)", function(){
-                   $("td").addClass("edit-for");
-                });
-            }
-
-            $("p").hide()
-
-            //addClass .trash on last cell
-            function addClassTrash() {
-                $("#example tbody").on( "click", "td", function(){
-                   $("td").removeClass("edit-for").addClass("trash");
-                });
-            }
+            
 
 
             //Function editable
             function editable() {
-                $("#example tbody").on("click", "td.edit-for", function(){
+                $("#example tbody").on("click", "td.edit-for, td.profile", function(){
                     $(this).css( "background-color", "#C6E2FF");                            
                     $(this).attr("contenteditable", "true");
                     $(this).focus();
@@ -117,14 +134,14 @@
 
             //Function Empty on DoubleClic
             function empty(){
-                $("#example tbody").on( "dblclick", "td.edit-for", function(){
+                $("#example tbody").on( "dblclick", "td.edit-for, td.profile", function(){
                     $( this).empty();
                 });
             }
 
             //Function Mouse leave
             function mouseLeave() {
-                $("#example tbody").on( "mouseleave", "td.edit-for", function(){
+                $("#example tbody").on( "mouseleave", "td.edit-for, td.profile", function(){
                     $( this).css( "background-color", "transparent");
                     //$('html,body').css('cursor','crosshair');
                     //$(this).attr('contenteditable', 'false');
@@ -139,9 +156,9 @@
                 nextOrPrevious
             }
 
-            //Function tabNext
-            function tabNext(){
-                 $("#example tbody").on( "keydown", "td.edit-for", function(e){
+            //function tabNext on profile
+            function tabNextprofile(){
+                 $("#example tbody").on( "keydown", "td.profile", function(e){
                     var keyCode = e.keyCode || e.wich;                 
                     if ((e.keyCode === 9) || (e.keyCode === 39) || (e.keyCode === 13)) {
                         e.preventDefault();
@@ -153,8 +170,13 @@
                         var rank = $(this).html();                                 
                         var id = $(this).attr('id');
                         var emptyMonth = table.column(this).title();                                      
-                        var projectName = $('#projectName').text();                                   
-                        var profile = table.row( 0 ).data()[0];                                                                          
+                        var projectName = $('#projectName').text();
+                        table.draw(); 
+                        table.row($(this).parents('tr')).data()[0];
+
+                        var profile = table.row($(this).parents('tr')).data()[0]
+                        alert(profile);
+                                                                                            
                                 
                         $.ajax({
                             url:'/activity/update',
@@ -177,9 +199,50 @@
                         });
                     }
                  })
-            }
+            } 
 
-                    
+
+            //Function tabNext
+            function tabNext(){
+                 $("#example tbody").on( "keydown", "td.edit-for", function(e){
+                    var keyCode = e.keyCode || e.wich;                 
+                    if ((e.keyCode === 9) || (e.keyCode === 39) || (e.keyCode === 13)) {
+                        e.preventDefault();
+                        $( this).css( "background-color", "transparent"); 
+                        var nextOrPrevious = $(this).closest('td').next("td.edit-for");
+                        cssOnTab(nextOrPrevious);
+
+                        //Update on next, previous, enter                    
+                        var rank = $(this).html();                                 
+                        var id = $(this).attr('id');
+                        var emptyMonth = table.column(this).title();                                      
+                        var projectName = $('#projectName').text(); 
+                        var profile = table.row($(this).parents('tr')).data()[0];
+                        alert(profile);
+                                                                                            
+                                
+                        $.ajax({
+                            url:'/activity/update',
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                "rank": rank,
+                                "id": id,
+                                "emptyMonth": emptyMonth,                            
+                                "projectName": projectName,
+                                "profile": profile
+                            },
+                            async: true,
+                            success: function (data)
+                            {
+                                console.log(data);
+                                $( '#rank' ).text(data.rank);
+                                $('#response').addClass("visible").removeClass("invisible");;                       
+                            }
+                        });
+                    }
+                 })
+            }   
 
             //Function tabPrevious    
             function tabPrevious(){
@@ -194,49 +257,20 @@
                 });
             }
 
-              
-           
-
-            
-           
-
-                       
-            
-                                  
-                
-           
-
-           
-            
-            
-            //tab = previous td
-            
-                
-
             //Initialize var DataTable
             var table = $('#example').DataTable({                
                     //ajax:'/ajax',
             });
 
-           
-
-            
-
             //delete row
-             $('.trash').on('click', function () {
-                let brand = $(this).parent('td').find();               
-                let txt;
-                let r = confirm("Etes-vous sûr de vouloir supprimer : \n"+ brand +' ?');
-                if (r === true) {
-                    table
-                        .row(brand)
+             $('#example tbody').on('click', "td.trash", function () {
+                if ( confirm( "Etes vous sûr de vouloir supprimer cette ligne ?" ) ) {
+                     table
+                        .row( $(this).parents('tr') )
                         .remove()
                         .draw();
-                } else {
-                    txt = "opération annulée!";
-                }
-                document.getElementById("titre").innerHTML = txt;
-            } );
+                }               
+            });
             
 
             //initialization 11 colums array
@@ -306,39 +340,25 @@
                 var key = parseInt($('#key').text());
                 var nbColumns = parseInt($('#nbColumns').text());         
                 var range = parseInt(5);
-                var keyRange = key+range;
-                
+                var keyRange = key+range;  
 
                 //Set all columns visible and Copy it
                 for ( var i=1; i<nbColumns; i++ ){
                 table.column( i ).visible( true, true );
                 }
 
-                //addRow and copy last
-                var col = ["profil"];
+                //addRow + class
+                var col = [""];
                 for (i= 0; i<nbColumns-1; i++) {
-                   col.push('test');  
+                   col.push('');  
                 }
-                col.push('<i class="fas fa-trash-alt"></i>')                
+                col.push('<i class="fas fa-trash-alt"></i>')              
                 var rowNode = table.row.add(col).draw().node();
                 
-                $(rowNode).find('td').eq(-1).addClass('trash');
-
-                //add last td trash class + fontawesome
-
-                //set each td of this row on class editfor
-                    //
-                    //nbRows = table.rows().count() - 1;                              
-                    //var row = table.row(nbRows);                 
-                    //var td = tr.child();
-                    //alert(td);
-                    //td.addClass('edit-for');
-                                 
-                    
-                    //each
-                    //td.edit-for
-                    //add class
-                
+                $(rowNode).find('td').addClass('edit-for');
+                $(rowNode).find('td').eq(-1).removeClass("edit-for").addClass("trash");                
+                $(rowNode).find('td').eq(0).removeClass("edit-for").addClass("profile");
+                autocomplete();
 
                 //set all columns invisible and make visible from index
                 for ( var i=1; i<nbColumns; i++ ){
