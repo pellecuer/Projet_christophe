@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Tjm;
+use App\Entity\Pole;
+use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TjmType extends AbstractType
@@ -13,8 +16,12 @@ class TjmType extends AbstractType
     {
         $builder
             ->add('amount')
-            ->add('project')
-            ->add('pole')
+            ->add('pole', EntityType::class, [
+                'class' => Pole::class
+            ])
+            ->add('project', EntityType::class, [
+                'class' => Project::class
+            ])            
         ;
     }
 

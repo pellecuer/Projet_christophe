@@ -31,14 +31,15 @@ class Pole
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="pole")
      */
-    private $tjm;
-
-    
+    private $tjms;
 
     public function __construct()
     {
-        $this->tjm = new ArrayCollection();       
+        $this->tjms = new ArrayCollection();
     }
+
+    
+
 
     public function getId(): ?int
     {
@@ -72,15 +73,15 @@ class Pole
     /**
      * @return Collection|Tjm[]
      */
-    public function getTjm(): Collection
+    public function getTjms(): Collection
     {
-        return $this->tjm;
+        return $this->tjms;
     }
 
     public function addTjm(Tjm $tjm): self
     {
-        if (!$this->tjm->contains($tjm)) {
-            $this->tjm[] = $tjm;
+        if (!$this->tjms->contains($tjm)) {
+            $this->tjms[] = $tjm;
             $tjm->setPole($this);
         }
 
@@ -89,8 +90,8 @@ class Pole
 
     public function removeTjm(Tjm $tjm): self
     {
-        if ($this->tjm->contains($tjm)) {
-            $this->tjm->removeElement($tjm);
+        if ($this->tjms->contains($tjm)) {
+            $this->tjms->removeElement($tjm);
             // set the owning side to null (unless already changed)
             if ($tjm->getPole() === $this) {
                 $tjm->setPole(null);
@@ -98,5 +99,10 @@ class Pole
         }
 
         return $this;
-    }    
+    }
+
+    public function __toString(){        
+        return $this->name;        
+    }
+    
 }

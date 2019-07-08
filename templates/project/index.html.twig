@@ -12,11 +12,10 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Code</th>
-                <th>Type</th>
-                <th>Cost</th>
                 <th>Start Date</th>
                 <th>End Date</th>
-                <th>actions</th>
+                <th>Voir</th>
+                <th>Editer</th>
             </tr>
         </thead>
         <tbody>
@@ -24,14 +23,14 @@
             <tr>
                 <td>{{ project.id }}</td>
                 <td>{{ project.name }}</td>
-                <td>{{ project.code }}</td>
-                <td>{{ project.type }}</td>
-                <td>{{ project.cost }}</td>
+                <td>{{ project.code }}</td>                
                 <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+                    <a href="{{ path('project_show', {'id': project.id}) }}"><i class="fas fa-eye"></i></a>                    
+                </td>
+                <td>
+                    <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit"></i></a>
                 </td>
             </tr>
         {% else %}
@@ -42,6 +41,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('project_new') }}">Create new</a>
+    <a href="{{ path('project_new') }}"><i class="fas fa-plus"></i> Ajouter un projet</a>
 </div>
 {% endblock %}

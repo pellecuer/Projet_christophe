@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,14 +24,20 @@ class Tjm
     private $amount;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="Tjm")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Pole", inversedBy="tjms")
      */
-    private $project;
+    private $pole;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Pole", inversedBy="Tjm")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="tjms")
      */
-    private $pole;   
+    private $project;
+    
+
+    public function __construct()
+    {              
+        $this->pole = new ArrayCollection();
+    }
     
 
     public function getId(): ?int
@@ -49,6 +57,23 @@ class Tjm
         return $this;
     }
 
+    /**
+     * @return Collection|Pole[]
+     */
+    public function getPole()
+    {
+        return $this->pole;
+    }
+   
+    
+
+    public function setPole(?Pole $pole): self
+    {
+        $this->pole = $pole;
+
+        return $this;
+    }
+
     public function getProject(): ?Project
     {
         return $this->project;
@@ -60,17 +85,6 @@ class Tjm
 
         return $this;
     }
-
-    public function getPole(): ?Pole
-    {
-        return $this->pole;
-    }
-
-    public function setPole(?Pole $pole): self
-    {
-        $this->pole = $pole;
-
-        return $this;
-    }
-    
+   
+   
 }

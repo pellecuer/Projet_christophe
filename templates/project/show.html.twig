@@ -21,20 +21,12 @@
                 <td>{{ project.code }}</td>
             </tr>
             <tr>
-                <th>Type</th>
-                <td>{{ project.type }}</td>
-            </tr>
-            <tr>
-                <th>Cost</th>
-                <td>{{ project.cost }}</td>
-            </tr>
-            <tr>
                 <th>Start at</th>
-                <td>{{ project.start_at ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ project.startDate|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>End at</th>
-                <td>{{ project.end_at ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ project.endDate|date('Y-m-d H:i:s') }}</td>
             </tr>
         </tbody>
     </table>

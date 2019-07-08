@@ -3,6 +3,7 @@
 {% block title %}Tjm index{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1>Tjm index</h1>
 
     <table class="table">
@@ -10,6 +11,8 @@
             <tr>
                 <th>Id</th>
                 <th>Amount</th>
+                <th>Pole</th>
+                <th>Project</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,6 +21,8 @@
             <tr>
                 <td>{{ tjm.id }}</td>
                 <td>{{ tjm.amount }}</td>
+                <td>{{ tjm.pole }}</td>
+                <td>{{ tjm.project }}</td>
                 <td>
                     <a href="{{ path('tjm_show', {'id': tjm.id}) }}">show</a>
                     <a href="{{ path('tjm_edit', {'id': tjm.id}) }}">edit</a>
@@ -32,4 +37,5 @@
     </table>
 
     <a href="{{ path('tjm_new') }}">Create new</a>
+</div>
 {% endblock %}

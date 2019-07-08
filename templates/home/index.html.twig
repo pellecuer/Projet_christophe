@@ -35,34 +35,16 @@
             </tr>
         </thead>
         <tbody>
+            {% for project in projects %}
             <tr>
-            <th scope="row">Amilnote</th>
-            <td>AM</td>
-            <td>Janvier 2012</td>
-            <td>Janvier 2015</td>
+            <th scope="row">{{ project.name }}</th>
+            <td>{{ project.code }}</td>            
+            <td>{{ project.startDate|date('d M Y') }}</td>
+            <td>{{ project.endDate|date('d M Y') }}</td>
+            <td><a class="btn btn-primary" href={{path('show', {'id': project.id}) }} role="button"><i class="far fa-clock"></i></a></td>
             </tr>
-            <tr>
-            <th scope="row">Babiltone</th>
-            <td>BAB</td>
-            <td>Mars 2015</td>
-            <td>Avril 2015</td>
-            </tr>
-            <tr>
-            <th scope="row">CRM V3</th>
-            <td>CRM</td>
-            <td>Septembre 2018</td>
-            <td>Décembre 2018</td>
-            </tr>
-            <th scope="row">Amilapp</th>
-            <td>LAP</td>
-            <td>Septembre 2018</td>
-            <td>Janvier 2019</td>
-            </tr>
-            <th scope="row">SIRH</th>
-            <td>RH</td>
-            <td>Septembre 2018</td>
-            <td>Mars 2019</td>
-            </tr>
+            {% endfor %}
+            
         </tbody>
     </table>
 </div>

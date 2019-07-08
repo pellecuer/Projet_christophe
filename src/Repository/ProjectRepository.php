@@ -34,6 +34,21 @@ class ProjectRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+    * @return Project[] Returns an array of Project objects
+    */    
+    public function findLastFive()
+    {
+        return $this->createQueryBuilder('p')            
+            ->orderBy('p.startDate', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+    
+
     // /**
     //  * @return Project[] Returns an array of Project objects
     //  */

@@ -36,11 +36,12 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">                    
-                            <a class="nav-item nav-link" href={{ path('home') }}><i class="fas fa-search"></i><span class="ml-1">Rechercher un projet</span></a>
-                            <a class="nav-item nav-link" href={{ path('project_new') }}><i class="fas fa-plus"></i><span class="ml-1">Ajouter un projet</span></a>
-                            <a class="nav-item nav-link" href={{ path('project_index') }}><i class="fas fa-edit"></i><span class="ml-1">Editer un projet</span></a>
-                            <a class="nav-item nav-link" href='#'><i class="fas fa-user"></i></i><span class="ml-1">Collaborateurs</span></a>                   
+                        <div class="navbar-nav"> 
+                            <a class="nav-item nav-link" href={{ path('project_index') }}><i class="fas fa-project-diagram"></i><span class="ml-1">Projets</span></a>
+                            <a class="nav-item nav-link" href={{path('collaborators_index')}}><i class="fas fa-user"></i><span class="ml-1">Collaborateurs</span></a>
+                            <a class="nav-item nav-link" href={{path('pole_index')}}><i class="fas fa-th-large"></i><span class="ml-1">Poles</span></a>  
+                            <a class="nav-item nav-link" href={{path('profile_index')}}><i class="fas fa-user"></i><span class="ml-1">Profils</span></a>
+                            <a class="nav-item nav-link" href={{path('tjm_index')}}><i class="far fa-clock"></i><span class="ml-1">TJM</span></a>                   
                         </div>
                     </div>
                 </nav>

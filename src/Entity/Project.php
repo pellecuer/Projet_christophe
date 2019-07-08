@@ -43,17 +43,19 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project")
      */
-    private $Activity;
+    private $activity;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="project")
      */
-    private $tjm;
+    private $tjms;
+
+    
 
     public function __construct()
     {
-        $this->Activity = new ArrayCollection();
-        $this->tjm = new ArrayCollection();
+        $this->activity = new ArrayCollection();
+        $this->tjms = new ArrayCollection();             
     }
 
     public function getId(): ?int
@@ -116,13 +118,13 @@ class Project
      */
     public function getActivity(): Collection
     {
-        return $this->Activity;
+        return $this->activity;
     }
 
     public function addActivity(Activity $activity): self
     {
-        if (!$this->Activity->contains($activity)) {
-            $this->Activity[] = $activity;
+        if (!$this->activity->contains($activity)) {
+            $this->activity[] = $activity;
             $activity->setProject($this);
         }
 
@@ -131,8 +133,8 @@ class Project
 
     public function removeActivity(Activity $activity): self
     {
-        if ($this->Activity->contains($activity)) {
-            $this->Activity->removeElement($activity);
+        if ($this->activity->contains($activity)) {
+            $this->activity->removeElement($activity);
             // set the owning side to null (unless already changed)
             if ($activity->getProject() === $this) {
                 $activity->setProject(null);
@@ -143,17 +145,17 @@ class Project
     }
 
     /**
-     * @return Collection|tjm[]
+     * @return Collection|Tjm[]
      */
-    public function getTjm(): Collection
+    public function getTjms(): Collection
     {
-        return $this->tjm;
+        return $this->tjms;
     }
 
     public function addTjm(Tjm $tjm): self
     {
-        if (!$this->tjm->contains($tjm)) {
-            $this->tjm[] = $tjm;
+        if (!$this->tjms->contains($tjm)) {
+            $this->tjms[] = $tjm;
             $tjm->setProject($this);
         }
 
@@ -162,8 +164,8 @@ class Project
 
     public function removeTjm(Tjm $tjm): self
     {
-        if ($this->tjm->contains($tjm)) {
-            $this->tjm->removeElement($tjm);
+        if ($this->tjms->contains($tjm)) {
+            $this->tjms->removeElement($tjm);
             // set the owning side to null (unless already changed)
             if ($tjm->getProject() === $this) {
                 $tjm->setProject(null);
@@ -172,4 +174,10 @@ class Project
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+    
 }
