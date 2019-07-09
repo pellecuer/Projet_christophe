@@ -25,7 +25,7 @@
                     <h1 class="display-4">Gestion de projet</h1>
                     <p class="lead">Plannification de temps previsionnel</p>            
                 </div>
-            </div>
+            </div>           
 
             {# navbar #} 
             <div class="container-fluid">
@@ -65,16 +65,16 @@
         {# <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
         <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script> #}
 
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
+                
+        
         <script>
         $(document).ready(function() {
-
              //table row            
             // $('#example tbody').on( 'click', 'tr', function () {                
             //    alert( table.row( this ).data() );
             //} );
-
+            
             //function autocomplete search
             $(function (){
                  var availableTags = [
@@ -214,13 +214,12 @@
                         cssOnTab(nextOrPrevious);
 
                         //Update on next, previous, enter                    
-                        var rank = $(this).html();                                 
-                        var id = $(this).attr('id');
+                        var rank = $(this).html();                                                       
+                        var id = $(this).attr('id');                        
                         var emptyMonth = table.column(this).title();                                      
                         var projectName = $('#projectName').text(); 
-                        var profile = table.row($(this).parents('tr')).data()[0];
-                        alert(profile);
-                                                                                            
+                        var profile = table.row($(this).parents('tr')).data()[0];                                               
+                        var pole = $(this).closest('tr').prevAll('.poleclickable').first().text();                                                                                             
                                 
                         $.ajax({
                             url:'/activity/update',
@@ -231,7 +230,8 @@
                                 "id": id,
                                 "emptyMonth": emptyMonth,                            
                                 "projectName": projectName,
-                                "profile": profile
+                                "profile": profile,
+                                "pole": pole
                             },
                             async: true,
                             success: function (data)
@@ -261,6 +261,9 @@
             //Initialize var DataTable
             var table = $('#example').DataTable({                
                     //ajax:'/ajax',
+                    "ordering": false,
+                    "paging": false
+                    
             });
 
             //delete row
@@ -369,12 +372,7 @@
                 table.column( i ).visible( true, true );               
                 }
             });
-
-            
-
-            
         });
-
         </script>       
     {% block javascripts %}{% endblock %}
     </body>

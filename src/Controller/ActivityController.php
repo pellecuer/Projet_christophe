@@ -14,6 +14,7 @@ use \PDO;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Activity;
 use App\Entity\Project;
+use App\Entity\Pole;
 use App\Repository\ActivityRepository;
 use App\Repository\ProjectRepository;
 
@@ -57,6 +58,11 @@ class ActivityController extends AbstractController
             $dt = $dt->add($intervalOneMonth);
         }
 
+        //poles []
+        $poles =  $this->getDoctrine()
+        ->getRepository(Pole::class)
+        ->findAll();
+
         //$arrayProfiles[]
         $arrayProfiles = [];        
         $profiles = $repository->findProfiles();
@@ -88,7 +94,8 @@ class ActivityController extends AbstractController
             'nbColumns' =>$nbColumns,
             'currentMonth' => $currentMonth->format('M-y'),
             'activities' => $activities,
-            'projectName' =>$project->getName()
+            'projectName' =>$project->getName(),
+            'poles' => $poles
         ]);
     }
                      

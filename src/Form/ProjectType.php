@@ -19,6 +19,9 @@ class ProjectType extends AbstractType
             ->add('code')           
             ->add('startDate', DateType::class)
             ->add('endDate', DateType::class)
+            ->add('Tjms', EntityType::class, [
+                'class' => Tjm::class
+            ])
         ;
     }
 

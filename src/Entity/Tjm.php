@@ -85,6 +85,12 @@ class Tjm
 
         return $this;
     }
+
+    public function __toString()
+    {              
+        $test = $this->amount;
+        return strval($test);
+    }
    
    
 }

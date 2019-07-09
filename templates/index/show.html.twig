@@ -3,9 +3,6 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block body %}
-
-
-
     {# Search #}
     <div class="container mt-4 collapse" id="search-panel">
         <div class="jumbotron">
@@ -22,16 +19,10 @@
                      <div class="col-auto">
                         <button type="submit" class="btn btn-primary">Rechercher</button>
                      </div>                   
-                </div>
-               
+                </div>               
             </form>
         </div>
     </div>
-    
-    
-
-    
-
     {# Messages flash #}            
     <div class="invisible" id="response">
         <div class="alert alert-success">Vous avez attribué la note de <span class="badge badge-secondary" id="rank"></span> </div>
@@ -43,8 +34,8 @@
     </div>
 
     {# Invisible key #}
-    <div class="invisible" id="key">{{ (key) }}</div>
-    <div class="invisible" id="nbColumns">{{ (nbColumns) }}</div>
+    <div class="invisible" id="key">{{ key }}</div>
+    <div class="invisible" id="nbColumns">{{ nbColumns }}</div>
 
     {# datatable and bottoms #}
     <div class="container">
@@ -57,7 +48,7 @@
         <table id="example" class="display" style="width:100%">
             <thead>           
                 <tr>
-                    <th>Profil</th>                               
+                    <th>Poles</th>                               
                     {% for calendar in calendars %}
                         <th>{{ calendar }}</th>                    
                     {% endfor %}
@@ -65,7 +56,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for row in activities %}
+                {# {% for row in activities %}
                 <tr>
                     <td class="profile">{{ row.0 }}</td>                         
                     {% for Activity in row.1 %}
@@ -77,16 +68,38 @@
                     {% endfor %}
                     <td class="trash"><i class="fas fa-trash-alt"></i></td>                    
                 </tr>   
-                {% endfor %} 
-            </tbody>
-            {# <tfoot>
-                <tr>
-                    <th></th>
-                    {% for calendar in calendars %}
-                        <th>{{ calendar }}</th>                    
-                    {% endfor %}
-                </tr>
-            </tfoot>        #}
+                {% endfor %}  #}
+                {% set counter = 1 %}
+                {% set row = 'row'%}               
+                {% for pole in poles %}                  
+                    <tr class = "poleclickable bg-secondary text-white" data-toggle="collapse" id= "{{ row ~ counter }}" data-target="{{'.' ~ row ~ counter }}">
+                        <td class>{{ pole }}</td> 
+                            {% for calendar in calendars %} 
+                                <td></td>
+                            {% endfor %}
+                        <td><i class="fas fa-plus"></i></td>
+                    </tr>                    
+                    <tr class="collapse {{ row ~ counter }}">
+                        <td>Junior</td>
+                        {% for calendar in calendars %} 
+                                <td class="edit-for"></td>
+                        {% endfor %}
+                        <td></td>                                           
+                    </tr>
+                    <tr class="collapse {{ row ~ counter }}">
+                        <td>En formation</td>
+                        {% for calendar in calendars %} 
+                                <td class="edit-for"></td>
+                        {% endfor %}
+                        <td></td>                                           
+                    </tr>
+                     {% set counter = counter + 1 %}                                    
+                {% endfor %}
+                
+
+
+
+            </tbody>            
         </table>
         <button class="btn btn-primary addRow mb-2" type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>    
     </div>
