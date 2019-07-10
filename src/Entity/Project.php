@@ -108,7 +108,7 @@ class Project
 
     public function setEndDate(\DateTimeInterface $endDate): self
     {
-        $this->endDat = $endDate;
+        $this->endDate = $endDate;
 
         return $this;
     }

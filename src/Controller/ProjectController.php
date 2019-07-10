@@ -44,8 +44,7 @@ class ProjectController extends AbstractController
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
                     
-        if ($form->isSubmitted() && $form->isValid()) {
-            dump($form);die;                  
+        if ($form->isSubmitted() && $form->isValid()) {                                 
             $entityManager->persist($project);            
             $entityManager->flush();
             return $this->redirectToRoute('project_index');
