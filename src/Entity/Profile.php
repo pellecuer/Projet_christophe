@@ -33,9 +33,15 @@ class Profile
      */
     private $Collaborators;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="profile")
+     */
+    private $activities;
+
     public function __construct()
     {
         $this->Collaborators = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -101,5 +107,36 @@ class Profile
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->setProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
+            // set the owning side to null (unless already changed)
+            if ($activity->getProfile() === $this) {
+                $activity->setProfile(null);
+            }
+        }
+
+        return $this;
     }
 }

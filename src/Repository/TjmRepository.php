@@ -19,6 +19,28 @@ class TjmRepository extends ServiceEntityRepository
         parent::__construct($registry, Tjm::class);
     }
 
+
+     /**
+    * @return Tjm[][] Returns an array of Tjm objects
+    */    
+    public function findPolesByProject($project)
+    {
+        return $this->createQueryBuilder('t')            
+            ->andWhere('t.project = :project')
+            ->innerJoin('t.pole', 'pole')
+            ->addSelect('pole')
+            ->setParameter('project', $project)
+            ->distinct()
+            ->orderBy('pole.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
+
+
     // /**
     //  * @return Tjm[] Returns an array of Tjm objects
     //  */

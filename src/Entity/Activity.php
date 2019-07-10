@@ -16,10 +16,7 @@ class Activity
      */
     private $id; 
     
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $profile;
+    
 
     /**
      * @ORM\Column(type="datetime")
@@ -30,43 +27,33 @@ class Activity
     {
         $this->date = new \DateTime();
     }
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status;
-
+    
     /**
      * @ORM\Column(type="integer")
      */
     private $rank;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="Activity")
      */
     private $project;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Profile", inversedBy="activities")
+     */
+    private $profile;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Pole", inversedBy="activities")
+     */
+    private $pole;
+
     public function getId(): ?int
     {
         return $this->id;
     }
-
-    public function getProfile(): ?string
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(string $profile): self
-    {
-        $this->profile = $profile;
-
-        return $this;
-    }
+   
 
     public function getDate(): ?\DateTime
     {
@@ -78,19 +65,7 @@ class Activity
         $this->date = $date;
 
         return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
+    }    
 
     public function getRank(): ?int
     {
@@ -102,19 +77,7 @@ class Activity
         $this->rank = $rank;
 
         return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+    }    
 
     public function getProject(): ?Project
     {
@@ -124,6 +87,30 @@ class Activity
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profile $profile): self
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    public function getPole(): ?Pole
+    {
+        return $this->pole;
+    }
+
+    public function setPole(?Pole $pole): self
+    {
+        $this->pole = $pole;
 
         return $this;
     }

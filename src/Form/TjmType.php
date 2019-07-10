@@ -14,11 +14,11 @@ class TjmType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('amount')
+        $builder            
             ->add('pole', EntityType::class, [
                 'class' => Pole::class
-            ])                      
+            ])
+            ->add('amount')                      
         ;
     }
 

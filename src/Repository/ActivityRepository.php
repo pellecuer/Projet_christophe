@@ -43,20 +43,89 @@ class ActivityRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult()
         ;
-    }    
+    }
+    
+    /**
+    * @return Activity[] Returns an array of Activity objects
+    */    
+    public function findOneByDateByProjectByProfileByPole($date, $project, $profile, $pole)
+    {
+        $thisMonth = $date->format('F');
+        $thisyear = $date->format('Y');
+        $startOfMonth = new \dateTime('first day of' . $thisMonth . $thisyear);        
+        $endOfMonth = new \dateTime('last day of' . $thisMonth. $thisyear);
+
+        return $this->createQueryBuilder('a')
+
+            ->andWhere('a.date BETWEEN :start AND :end')
+            ->andWhere('a.project = :project')
+            ->andwhere('a.profile = :profile')
+            ->andwhere('a.pole = :pole') 
+            ->setParameter('start', $startOfMonth)
+            ->setParameter('end', $endOfMonth)
+            ->setParameter('project', $project)
+            ->setParameter('profile', $profile)
+            ->setParameter('pole', $profile)
+            ->orderBy('a.date', 'ASC')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+
 
      /**
     * @return Activity[] Returns an array of Activity objects
     */    
-    public function findProfiles()
+    public function findProfilesByProjectByPole($project, $pole)
     {
         return $this->createQueryBuilder('a')
-            ->select ('a.profile') 
-            ->distinct('a.profile')
+            ->andWhere('a.project = :project')
+            ->andWhere('a.pole = :pole')
+            ->innerJoin('a.profile', 'profile')
+            ->addSelect('profile')
+            ->setParameter('project', $project)
+            ->setParameter('pole', $pole)
+            ->distinct()
+            ->orderBy('profile.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;
-    }   
+    }
+
+    //  /**
+    // * @return Activity[] Returns an array of Activity objects
+    // */    
+    // public function findPolesByProject($project)
+    // {
+    //     return $this->createQueryBuilder('a')            
+    //         ->andWhere('a.project = :project')
+    //         ->innerJoin('a.pole', 'pole')
+    //         ->addSelect('pole')
+    //         ->setParameter('project', $project)
+    //         ->distinct()
+    //         ->orderBy('pole.name', 'ASC')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+    
+    
+    /**
+     * @return Activity[] Returns an array of Activity objects
+     */    
+    public function findByProjectByPole($project, $pole)
+    {
+        return $this->createQueryBuilder('a')            
+            ->andWhere('a.project = :project')
+            ->andWhere('a.pole = :pole')
+            ->setParameter('project', $project)
+            ->setParameter('pole', $pole)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
 
 

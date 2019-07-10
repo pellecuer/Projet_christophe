@@ -15,6 +15,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Activity;
 use App\Entity\Project;
 use App\Entity\Pole;
+use App\Entity\Profile;
+use App\Entity\Tjm;
 use App\Repository\ActivityRepository;
 use App\Repository\ProjectRepository;
 
@@ -43,6 +45,88 @@ class ActivityController extends AbstractController
      * @Route("/show/{id}", name="show")
      */
     public function show(ActivityRepository $repository, Project $project)
+    {               
+        $currentMonth = new \DateTime('now');
+        $startProjectDate = $project->getStartDate();       
+        $endProjectDate = $project->getEndDate();      
+        
+        $intervalOneMonth = new \DateInterval('P1M');
+
+        // Calendars []
+        $calendars = [];
+        $dt = \DateTimeImmutable::createFromMutable($startProjectDate);
+        while ($dt < $endProjectDate){            
+            $calendars[] = $dt;            
+            $dt = $dt->add($intervalOneMonth);
+        }
+
+        //PolesByProject
+        $PolesByProject =  $this->getDoctrine()
+        ->getRepository(Tjm::class)
+        ->findPolesByProject($project);  
+        
+        
+        $poles = [];
+        foreach($PolesByProject as $poleByProject){
+            $poles[] = $poleByProject->getPole();
+        }
+
+
+        // $profiles = $this->getDoctrine()
+        // ->getRepository(Profile::class)
+        // ->findAll();
+        
+       
+        $profilesByPole = [];
+
+        foreach ($poles as $pole) {
+            $profilesByPole[] = $repository->findProfilesByProjectByPole($project, $pole);
+        }
+
+        dump($profilesByPole);die;
+
+        $profiles = [];
+        foreach($profilesByPole as $profileByPole){            
+            $profiles[]['name'] = $profileByPole->getProfile();
+        }
+
+        // dump($profiles);die;
+        
+
+        
+        foreach($profiles as $profile){  
+            $col2 = [];
+            foreach ($calendars as $date) {                
+                $data = $repository->findOneByDateByProjectByProfile($date, $project, $profile); 
+                $col2[] = $data ? $data: NULL;
+            }           
+            $activities[] = [$profile, $col2];                    
+        }  
+        
+
+        //Array Key of current Month
+        foreach ($calendars as $calendar)
+            $stringCalendars[] = $calendar->format('M-y'); 
+        $key = array_search($currentMonth->format('M-y'), $stringCalendars)+1; 
+        
+        $nbColumns = count($stringCalendars)+1;
+        // dump($nbColumns);die;
+
+        return $this->render('index/show.html.twig', [            
+            'calendars' => $stringCalendars,
+            'key' => $key,
+            'nbColumns' =>$nbColumns,
+            'currentMonth' => $currentMonth->format('M-y'),
+            'activities' => $activities,
+            'projectName' =>$project->getName(),
+            'poles' => $poles
+        ]);
+    }
+
+    /**
+     * @Route("/show2/{id}", name="show2")
+     */
+    public function show2(ActivityRepository $repository, Project $project)
     {               
         $currentMonth = new \DateTime('now');
         $startProjectDate = $project->getStartDate();       
@@ -196,26 +280,26 @@ class ActivityController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/new", name="new")
-     */
-    public function new()
-    {        
-        $activity = new Activity;    
-        $activity->setProfile('Junior');
-        $dateTime = new \DateTime('2019-02-05 12:00:00');
-        $activity ->setDate($dateTime);
-        $activity ->setRank(4);
-        $activity->setStatus('Prévisionnel');
-        $activity->setType('Quality E'); 
+    // /**
+    //  * @Route("/new", name="new")
+    //  */
+    // public function new()
+    // {        
+    //     $activity = new Activity;    
+    //     $activity->setProfile('Junior');
+    //     $dateTime = new \DateTime('2019-02-05 12:00:00');
+    //     $activity ->setDate($dateTime);
+    //     $activity ->setRank(4);
+    //     $activity->setStatus('Prévisionnel');
+    //     $activity->setType('Quality E'); 
 
-        $this->em->persist($activity);
-        $this->em->flush();
-        $this->addFlash('success', 'Nouvelle activité crée avec succès');
+    //     $this->em->persist($activity);
+    //     $this->em->flush();
+    //     $this->addFlash('success', 'Nouvelle activité crée avec succès');
 
-        return new Response('Nouvelle activité '. $activity->getId());
+    //     return new Response('Nouvelle activité '. $activity->getId());
 
-    }
+    // }
 
     /**
      * @Route("/update", name="update")
@@ -224,22 +308,34 @@ class ActivityController extends AbstractController
     {        
         $id = $request->request->get('id');
         $rank = $request->request->get('rank');
-
-        //If id == 0, create new Activity and verify it doesn't exist by searching
-    
-        $date = $request->request->get('emptyMonth');   
-        $projectName =  $request->request->get('projectName');
-        $profile = $request->request->get('profile');
+        $date = $request->request->get('emptyMonth'); 
+           
+        $projectName =  $request->request->get('projectName');        
         $project = $this->getDoctrine()
             ->getRepository(Project::class)
             ->findOneBy([
                 'name' =>$projectName
             ]);
+        
+        $poleName = $request->request->get('poleName');
+        $pole = $this->getDoctrine()
+            ->getRepository(Pole::class)
+            ->findOneBy([
+                'name' =>$poleName
+            ]);        
+        
+        $profileName = $request->request->get('profileName');
+        $profile = $this->getDoctrine()
+            ->getRepository(Profile::class)
+            ->findOneBy([
+                'name' =>$profileName
+            ]);  
+
             
 
         //Search if Activity exist           
         $dateTime = \DateTime::createFromFormat('M-y', $date);
-        $activity = $repository->findOneByDateByProjectByProfile($dateTime, $project, $profile);
+        $activity = $repository->findOneByDateByProjectByProfileByPole($dateTime, $project, $profile, $pole);
         
         if ($activity) {
             $activity->setRank($rank);
@@ -251,8 +347,7 @@ class ActivityController extends AbstractController
             $activity->setDate($dateTime);
             $activity->setRank($rank);
             $activity->setProject($project);
-            $activity->setStatus('Prévisionnel');
-            $activity->setType('Indéterminé');
+            $activity->setPole($pole);           
             $this->em->persist($activity);
             $this->em->flush();
         }

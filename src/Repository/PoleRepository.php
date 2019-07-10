@@ -19,6 +19,22 @@ class PoleRepository extends ServiceEntityRepository
         parent::__construct($registry, Pole::class);
     }
 
+
+
+    /**
+     * @return Pole[] Returns an array of Pole objects
+     */    
+    public function findAllAsc()
+    {
+        return $this->createQueryBuilder('p')                        
+            ->orderBy('p.name', 'ASC')            
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    
+    
     // /**
     //  * @return Pole[] Returns an array of Pole objects
     //  */

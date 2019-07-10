@@ -33,9 +33,15 @@ class Pole
      */
     private $tjms;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="pole")
+     */
+    private $activities;
+
     public function __construct()
     {
         $this->tjms = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
     
@@ -103,6 +109,37 @@ class Pole
 
     public function __toString(){        
         return $this->name;        
+    }
+
+    /**
+     * @return Collection|Activity[]
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): self
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->setPole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): self
+    {
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
+            // set the owning side to null (unless already changed)
+            if ($activity->getPole() === $this) {
+                $activity->setPole(null);
+            }
+        }
+
+        return $this;
     }
     
 }

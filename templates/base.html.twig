@@ -221,8 +221,8 @@
                         var id = $(this).attr('id');                        
                         var emptyMonth = table.column(this).title();                                      
                         var projectName = $('#projectName').text(); 
-                        var profile = table.row($(this).parents('tr')).data()[0];                                               
-                        var pole = $(this).closest('tr').prevAll('.poleclickable').first().text();                                                                                             
+                        var profileName = table.row($(this).parents('tr')).data()[0];                                               
+                        var poleName = $(this).closest('tr').prevAll('.poleclickable').first().text();                                                                                             
                                 
                         $.ajax({
                             url:'/activity/update',
