@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Entity\Tjm;
+use App\Entity\Pole;
+use App\Entity\Activity;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,18 +34,22 @@ class ProjectController extends AbstractController
      * @Route("/new", name="project_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
-    {
-        $project = new Project();
+    {        
+        $entityManager = $this->getDoctrine()->getManager();        
+        
+        $tjm = new Tjm();
+        $project = new Project();       
+        $project->addTjm($tjm);        
+
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
-
+                    
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($project);
+            dump($form);die;                  
+            $entityManager->persist($project);            
             $entityManager->flush();
-
             return $this->redirectToRoute('project_index');
-        }
+        } 
 
         return $this->render('project/new.html.twig', [
             'project' => $project,

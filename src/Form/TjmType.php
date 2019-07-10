@@ -18,10 +18,7 @@ class TjmType extends AbstractType
             ->add('amount')
             ->add('pole', EntityType::class, [
                 'class' => Pole::class
-            ])
-            ->add('project', EntityType::class, [
-                'class' => Project::class
-            ])            
+            ])                      
         ;
     }
 

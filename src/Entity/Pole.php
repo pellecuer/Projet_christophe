@@ -29,7 +29,7 @@ class Pole
     private $codePole;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="pole")
+     * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="pole", cascade={"persist"})
      */
     private $tjms;
 

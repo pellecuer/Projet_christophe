@@ -2,13 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Project;
 use App\Entity\Tjm;
+use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProjectType extends AbstractType
 {
@@ -17,10 +19,24 @@ class ProjectType extends AbstractType
         $builder
             ->add('name')
             ->add('code')           
-            ->add('startDate', DateType::class)
-            ->add('endDate', DateType::class)
-            ->add('Tjms', EntityType::class, [
-                'class' => Tjm::class
+            ->add('startDate', DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('endDate', DateType::class, [
+                'widget' => 'single_text',                
+            ])
+            ->add('Tjms', CollectionType::class, [
+                'entry_type' => TjmType::class,
+                'entry_options' => ['label' => false],
+                'label' => false,
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true
+            ])
+            ->add('save', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success'
+                ]                
             ])
         ;
     }

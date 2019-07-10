@@ -46,7 +46,7 @@ class Project
     private $activity;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="project", cascade={"persist"})
      */
     private $tjms;
 
