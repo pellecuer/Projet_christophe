@@ -36,10 +36,11 @@
     {# Invisible key #}
     <div class="invisible" id="key">{{ key }}</div>
     <div class="invisible" id="nbColumns">{{ nbColumns }}</div>
+    <div class="invisible" id="projectName">{{ projectName }}</div>
 
     {# datatable and bottoms #}
     <div class="container">
-        <h1 class="text-center" id ="projectName">{{ projectName }}</h1>   
+        <h1 class="text-center">{{ projectName }}</h1>   
         <div class="mb-5 mx-5 text-right">
             <button type="button" class="btn btn-primary previous"><i class="fas fa-step-backward"></i></button>
             <span class="" id="currentMonth">{{ currentMonth }}</span>
@@ -71,28 +72,24 @@
                 {% endfor %}  #}
                 {% set counter = 1 %}
                 {% set row = 'row'%}               
-                {% for pole in poles %}                  
+                {% for pole in all %}
                     <tr class = "poleclickable bg-secondary text-white" data-toggle="collapse" id= "{{ row ~ counter }}" data-target="{{'.' ~ row ~ counter }}">
-                        <td class>{{ pole }}</td> 
+                        <td class>{{ pole.0 }}</td> 
                             {% for calendar in calendars %} 
                                 <td></td>
                             {% endfor %}
                         <td><i class="fas fa-plus"></i></td>
-                    </tr>                    
+                    </tr>
+                    {% for rowProfile in pole.1 %}                                   
                     <tr class="collapse {{ row ~ counter }}">
-                        <td>Junior</td>
-                        {% for calendar in calendars %} 
-                                <td class="edit-for"></td>
+                        <td>{{ rowProfile.0 }}</td>
+                        {% for activity in rowProfile.1%} 
+                                <td class="edit-for" id= {{ activity ? activity.id:'' }}>{{ activity ? activity.rank : '' }}</td>
                         {% endfor %}
                         <td></td>                                           
                     </tr>
-                    <tr class="collapse {{ row ~ counter }}">
-                        <td>En formation</td>
-                        {% for calendar in calendars %} 
-                                <td class="edit-for"></td>
-                        {% endfor %}
-                        <td></td>                                           
-                    </tr>
+                    {% endfor %}                   
+                    
                      {% set counter = counter + 1 %}                                    
                 {% endfor %}
                 

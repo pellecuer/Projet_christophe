@@ -160,50 +160,7 @@
                 nextOrPrevious
             }
 
-            //function tabNext on profile
-            function tabNextprofile(){
-                 $("#example tbody").on( "keydown", "td.profile", function(e){
-                    var keyCode = e.keyCode || e.wich;                 
-                    if ((e.keyCode === 9) || (e.keyCode === 39) || (e.keyCode === 13)) {
-                        e.preventDefault();
-                        $( this).css( "background-color", "transparent"); 
-                        var nextOrPrevious = $(this).closest('td').next("td.edit-for");
-                        cssOnTab(nextOrPrevious);
-
-                        //Update on next, previous, enter                    
-                        var rank = $(this).html();                                 
-                        var id = $(this).attr('id');
-                        var emptyMonth = table.column(this).title();                                      
-                        var projectName = $('#projectName').text();
-                        table.draw(); 
-                        table.row($(this).parents('tr')).data()[0];
-
-                        var profile = table.row($(this).parents('tr')).data()[0]
-                        alert(profile);
-                                                                                            
-                                
-                        $.ajax({
-                            url:'/activity/update',
-                            type: "POST",
-                            dataType: "json",
-                            data: {
-                                "rank": rank,
-                                "id": id,
-                                "emptyMonth": emptyMonth,                            
-                                "projectName": projectName,
-                                "profile": profile
-                            },
-                            async: true,
-                            success: function (data)
-                            {
-                                console.log(data);
-                                $( '#rank' ).text(data.rank);
-                                $('#response').addClass("visible").removeClass("invisible");;                       
-                            }
-                        });
-                    }
-                 })
-            } 
+            
 
 
             //Function tabNext
@@ -222,7 +179,7 @@
                         var emptyMonth = table.column(this).title();                                      
                         var projectName = $('#projectName').text(); 
                         var profileName = table.row($(this).parents('tr')).data()[0];                                               
-                        var poleName = $(this).closest('tr').prevAll('.poleclickable').first().text();                                                                                             
+                        var poleName = $(this).closest('tr').prevAll('.poleclickable').first().text();                                                                                                                                       
                                 
                         $.ajax({
                             url:'/activity/update',
@@ -233,8 +190,8 @@
                                 "id": id,
                                 "emptyMonth": emptyMonth,                            
                                 "projectName": projectName,
-                                "profile": profile,
-                                "pole": pole
+                                "profileName": profileName,
+                                "poleName": poleName
                             },
                             async: true,
                             success: function (data)

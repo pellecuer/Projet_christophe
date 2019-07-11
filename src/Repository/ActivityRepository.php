@@ -20,6 +20,9 @@ class ActivityRepository extends ServiceEntityRepository
     }
 
 
+
+
+
     /**
     * @return Activity[] Returns an array of Activity objects
     */    
@@ -65,7 +68,7 @@ class ActivityRepository extends ServiceEntityRepository
             ->setParameter('end', $endOfMonth)
             ->setParameter('project', $project)
             ->setParameter('profile', $profile)
-            ->setParameter('pole', $profile)
+            ->setParameter('pole', $pole)
             ->orderBy('a.date', 'ASC')
             ->getQuery()
             ->getOneOrNullResult()

@@ -70,45 +70,46 @@ class ActivityController extends AbstractController
         foreach($PolesByProject as $poleByProject){
             $poles[] = $poleByProject->getPole();
         }
-
-
-        // $profiles = $this->getDoctrine()
-        // ->getRepository(Profile::class)
-        // ->findAll();
         
        
-        $profilesByPole = [];
+        // $profilesByPole = [];
 
-        foreach ($poles as $pole) {
-            $profilesByPole[] = $repository->findProfilesByProjectByPole($project, $pole);
-        }
+        // foreach ($poles as $pole) {
+        //     $profilesByPole[] = $repository->findProfilesByProjectByPole($project, $pole);            
+        // }
 
-        dump($profilesByPole);die;
-
-        $profiles = [];
-        foreach($profilesByPole as $profileByPole){            
-            $profiles[]['name'] = $profileByPole->getProfile();
-        }
-
-        // dump($profiles);die;
+        $profiles = $this->getDoctrine()
+        ->getRepository(Profile::class)
+        ->findAllAsc();
         
-
-        
-        foreach($profiles as $profile){  
-            $col2 = [];
-            foreach ($calendars as $date) {                
-                $data = $repository->findOneByDateByProjectByProfile($date, $project, $profile); 
-                $col2[] = $data ? $data: NULL;
-            }           
-            $activities[] = [$profile, $col2];                    
-        }  
+        $all = [];        
+        $poleName = ''; 
+        $profileName = '';
+        $rowProfile = [];  
+        foreach ($poles as $pole){
+            $poleName = $pole->getname();            
+            foreach($profiles as $profile){                
+                $profileName = $profile->getName();
+                foreach ($calendars as $date){
+                    $data = $repository->findOneByDateByProjectByProfileByPole($date, $project, $profile, $pole); 
+                    $col2[] = $data ? $data: NULL;
+                }
+                $rowProfile[] = [$profileName, $col2];
+                $col2 = [];
+                $profileName = '';            
+            } 
+            $all[] = [$poleName, $rowProfile];
+            $poleName = '';
+            $rowProfile = [];                                              
+        }
         
 
         //Array Key of current Month
-        foreach ($calendars as $calendar)
-            $stringCalendars[] = $calendar->format('M-y'); 
-        $key = array_search($currentMonth->format('M-y'), $stringCalendars)+1; 
-        
+        foreach ($calendars as $calendar){
+            $stringCalendars[] = $calendar->format('M-y');
+        }
+
+        $key = array_search($currentMonth->format('M-y'), $stringCalendars)+1;
         $nbColumns = count($stringCalendars)+1;
         // dump($nbColumns);die;
 
@@ -116,72 +117,13 @@ class ActivityController extends AbstractController
             'calendars' => $stringCalendars,
             'key' => $key,
             'nbColumns' =>$nbColumns,
-            'currentMonth' => $currentMonth->format('M-y'),
-            'activities' => $activities,
+            'currentMonth' => $currentMonth->format('M-y'),            
             'projectName' =>$project->getName(),
-            'poles' => $poles
+            'poles' => $poles,
+            'profiles' => $profiles,
+            'all' => $all
         ]);
-    }
-
-    /**
-     * @Route("/show2/{id}", name="show2")
-     */
-    public function show2(ActivityRepository $repository, Project $project)
-    {               
-        $currentMonth = new \DateTime('now');
-        $startProjectDate = $project->getStartDate();       
-        $endProjectDate = $project->getEndDate();
-        
-        $intervalOneMonth = new \DateInterval('P1M');
-
-        // Calendars []
-        $calendars = [];
-        $dt = \DateTimeImmutable::createFromMutable($startProjectDate);
-        while ($dt < $endProjectDate){            
-            $calendars[] = $dt;            
-            $dt = $dt->add($intervalOneMonth);
-        }
-
-        //poles []
-        $poles =  $this->getDoctrine()
-        ->getRepository(Pole::class)
-        ->findAll();
-
-        //$arrayProfiles[]
-        $arrayProfiles = [];        
-        $profiles = $repository->findProfiles();
-        foreach($profiles as $Eachprofile) {            
-            $arrayProfiles[] = $Eachprofile['profile'];            
-        }
-        
-        foreach($arrayProfiles as $profile){  
-            $col2 = [];
-            foreach ($calendars as $date) {                
-                $data = $repository->findOneByDateByProjectByProfile($date, $project, $profile); 
-                $col2[] = $data ? $data: NULL;
-            }           
-            $activities[] = [$profile, $col2];                    
-        }  
-        
-
-        //Array Key of current Month
-        foreach ($calendars as $calendar)
-            $stringCalendars[] = $calendar->format('M-y'); 
-        $key = array_search($currentMonth->format('M-y'), $stringCalendars)+1; 
-        
-        $nbColumns = count($stringCalendars)+1;
-        // dump($nbColumns);die;
-
-        return $this->render('index/show.html.twig', [            
-            'calendars' => $stringCalendars,
-            'key' => $key,
-            'nbColumns' =>$nbColumns,
-            'currentMonth' => $currentMonth->format('M-y'),
-            'activities' => $activities,
-            'projectName' =>$project->getName(),
-            'poles' => $poles
-        ]);
-    }
+    }  
                      
           
 
@@ -329,8 +271,7 @@ class ActivityController extends AbstractController
             ->getRepository(Profile::class)
             ->findOneBy([
                 'name' =>$profileName
-            ]);  
-
+            ]);
             
 
         //Search if Activity exist           
@@ -355,7 +296,7 @@ class ActivityController extends AbstractController
 
         $response = new Response(json_encode([
             'id' =>  $id,
-            'rank'=> $rank
+            'rank'=> $poleName
         ]));
         $response->headers->set('Content-Type', 'application/json');
         return $response;

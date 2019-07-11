@@ -21,6 +21,34 @@ class ProfileRepository extends ServiceEntityRepository
 
 
 
+     /**
+     * @return Profile[] Returns an array of Profile objects
+     */    
+    public function findAllAsc()
+    {
+        return $this->createQueryBuilder('p')            
+            ->orderBy('p.name', 'ASC')            
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    // /**
+    //  * @return Profile[] Returns an array of Profile objects
+    //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    */
     
 
     // /**
