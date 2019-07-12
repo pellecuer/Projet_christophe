@@ -3,26 +3,7 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block body %}
-    {# Search #}
-    <div class="container mt-4 collapse" id="search-panel">
-        <div class="jumbotron">
-            <h1 class="mb-5 text-center"><i class="fas fa-search"></i><span class="ml-1">Trouvez un projet</span></h1>
-            <form>
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" placeholder="Entrez une date">
-                    </div>
-                    <div class="col-auto text-center ">et / ou</div>
-                    <div class="col-sm-4">
-                        <input type="select" id="recherche" class="form-control" placeholder="Premières lettres du projet">
-                    </div>
-                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary">Rechercher</button>
-                     </div>                   
-                </div>               
-            </form>
-        </div>
-    </div>
+    
     {# Messages flash #}            
     <div class="invisible" id="response">
         <div class="alert alert-success">Vous avez attribué la note de <span class="badge badge-secondary" id="rank"></span> </div>

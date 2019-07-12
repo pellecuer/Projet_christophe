@@ -3,25 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<div class="container mt-4" id="search-panel">
-    <div class="jumbotron">
-        <h1 class="mb-5 text-center"><i class="fas fa-search"></i><span class="ml-1">Trouvez un projet</span></h1>
-        <form>
-            <div class="row align-items-center justify-content-center">
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Entrez une date">
-                </div>
-                <div class="col-auto text-center ">et / ou</div>
-                <div class="col-sm-4">
-                    <input type="select" id="recherche" class="form-control" placeholder="Premières lettres du projet">
-                </div>
-                    <div class="col-auto">
-                    <button type="submit" class="btn btn-primary">Rechercher</button>
-                    </div>                   
-            </div>               
-        </form>
-    </div>        
-</div>
+{% include 'home/_searchProject.html.twig' %}
 
 <div class="container lastProjects">
     <h5>Les 5 derniers projets</h5>

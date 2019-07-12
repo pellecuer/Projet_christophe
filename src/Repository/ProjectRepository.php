@@ -3,8 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Project;
+use App\Entity\ProjectSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Project|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,31 +25,39 @@ class ProjectRepository extends ServiceEntityRepository
 
 
     /**
-    * @return Project[] Returns an array of Project objects
-    */
-    public function findlikeSearchValue($searchValue)
+     * findAllVisibleQuery
+     *
+     * @return Query
+     */
+    public function findAllVisibleQuery(ProjectSearch $search): Query
     {
-        return $this->createQueryBuilder('p')
-            ->Where('p.name LIKE :searchValue')
-            ->setParameter('searchValue', $searchValue)
-            ->orderBy('p.name', 'ASC')            
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = $this->findAllDescQuery();
+        // dump($search);die;
+
+        if ($search->getDate()) {
+            $query = $query
+                ->andWhere(':date BETWEEN p.startDate AND p.endDate')                
+                ->setParameter('date', $search->getDate());
+        }
+        
+        if ($search->getName()) {
+            $query = $query
+                ->andWhere('p.name LIKE :name')
+                ->setParameter('name', '%'.$search->getName().'%' );
+        }        
+        
+        return $query->getQuery();
     }
 
-    /**
-    * @return Project[] Returns an array of Project objects
-    */    
-    public function findLastFive()
+        
+    private function findAllDescQuery():QueryBuilder
     {
         return $this->createQueryBuilder('p')            
-            ->orderBy('p.startDate', 'DESC')
-            ->setMaxResults(5)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->orderBy('p.startDate', 'DESC');
     }
+
+    
+    
     
     
 
