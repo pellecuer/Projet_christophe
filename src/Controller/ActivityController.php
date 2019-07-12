@@ -250,23 +250,23 @@ class ActivityController extends AbstractController
     {        
         $id = $request->request->get('id');
         $rank = $request->request->get('rank');
-        $date = $request->request->get('emptyMonth'); 
+        $date = trim($request->request->get('emptyMonth')); 
            
-        $projectName =  $request->request->get('projectName');        
+        $projectName =  trim($request->request->get('projectName'));        
         $project = $this->getDoctrine()
             ->getRepository(Project::class)
             ->findOneBy([
                 'name' =>$projectName
             ]);
         
-        $poleName = $request->request->get('poleName');
+        $poleName = trim($request->request->get('poleName'));    
         $pole = $this->getDoctrine()
             ->getRepository(Pole::class)
             ->findOneBy([
-                'name' =>$poleName
+                'name' => $poleName
             ]);        
         
-        $profileName = $request->request->get('profileName');
+        $profileName = trim($request->request->get('profileName'));
         $profile = $this->getDoctrine()
             ->getRepository(Profile::class)
             ->findOneBy([
@@ -296,7 +296,7 @@ class ActivityController extends AbstractController
 
         $response = new Response(json_encode([
             'id' =>  $id,
-            'rank'=> $poleName
+            'rank'=> $rank
         ]));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
