@@ -73,7 +73,7 @@
                 {% set counter = 1 %}
                 {% set row = 'row'%}               
                 {% for pole in all %}
-                    <tr class = "poleclickable bg-secondary text-white" data-toggle="collapse" id= "{{ row ~ counter }}" data-target="{{'.' ~ row ~ counter }}">
+                    <tr class = "poleclickable bg-secondary text-white">
                         <td class>{{ pole.0 }}</td> 
                             {% for calendar in calendars %} 
                                 <td></td>
@@ -81,16 +81,14 @@
                         <td><i class="fas fa-plus"></i></td>
                     </tr>
                     {% for rowProfile in pole.1 %}                                   
-                    <tr class="collapse {{ row ~ counter }}">
+                    <tr class="child">
                         <td>{{ rowProfile.0 }}</td>
                         {% for activity in rowProfile.1%} 
                                 <td class="edit-for" id= {{ activity ? activity.id:'' }}>{{ activity ? activity.rank : '' }}</td>
                         {% endfor %}
                         <td></td>                                           
                     </tr>
-                    {% endfor %}                   
-                    
-                     {% set counter = counter + 1 %}                                    
+                    {% endfor %}                                  
                 {% endfor %}
                 
 
