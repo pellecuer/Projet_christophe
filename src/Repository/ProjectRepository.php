@@ -23,17 +23,20 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
-    /**
-     * findProjectsByTerms
-     *
-     * @return Project[] Returns an array of Project objects
-     */
-    public function findLikeProjectsByName($name)
-    {
-       
-        return $query->getQuery()->getResult();
-    }
     
+    /**
+    * @return Project[] Returns an array of Project objects
+    */
+    public function findlikeSearchValue($searchValue)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.name LIKE :searchValue')
+            ->setParameter('searchValue', '%'.$searchValue.'%')
+            ->orderBy('p.name', 'ASC')            
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
     
     /**

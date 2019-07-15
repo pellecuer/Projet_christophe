@@ -96,9 +96,31 @@
             } */
            
             
+            //function Autocomplete Ajax
+            $("#searchNameInput").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/project/search",
+                        dataType: "json",
+                        data: {
+                            term: request.term
+                        },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                    log("Selected: " + ui.item.value + " aka " + ui.item.id);
+                }
+            });
+
+
+            
             //function autocomplete search
             $(function (){
-                 var availableTags = [
+                 var projects = [
                     "Projet1",
                     "Projet2",
                     "Amilnote",
@@ -106,7 +128,7 @@
                     "CvGenerator"                    
                 ];
                 $( "#recherche" ).autocomplete({
-                source: availableTags
+                source: projects
                 });
             });
 

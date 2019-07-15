@@ -24,7 +24,8 @@ class ProjectSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Premières lettres du projet'
+                    'placeholder' => 'Premières lettres du projet',
+                    'id' => 'searchNameInput'
                 ],                
                 'trim' => true
             ])
