@@ -23,13 +23,25 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
-
     /**
-     * findAllVisibleQuery
+     * findProjectsByTerms
      *
      * @return Project[] Returns an array of Project objects
      */
-    public function findAllVisibleQuery(ProjectSearch $search)
+    public function findLikeProjectsByName($name)
+    {
+       
+        return $query->getQuery()->getResult();
+    }
+    
+    
+    
+    /**
+     * findProjectsByTerms
+     *
+     * @return Project[] Returns an array of Project objects
+     */
+    public function findLikeProjects(ProjectSearch $search)
     {
         $query = $this->findAllDescQuery();        
 

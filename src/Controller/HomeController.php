@@ -22,7 +22,7 @@ class HomeController extends AbstractController
         $form =$this->createForm(ProjectSearchType::class, $search);
         $form->handleRequest($request); 
              
-        $projects = $repository->findAllVisibleQuery($search);     
+        $projects = $repository->findLikeProjects($search);     
         // dump($projects);die; 
         // $projects= $repository->findAll();
 
