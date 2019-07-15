@@ -22,15 +22,13 @@ class HomeController extends AbstractController
         $form =$this->createForm(ProjectSearchType::class, $search);
         $form->handleRequest($request); 
              
-        $projects = $repository->findLikeProjects($search);     
-        // dump($projects);die; 
-        // $projects= $repository->findAll();
-
-           
+        $projects = $repository->findLikeProjects($search);
+        $arrayTitle = $request ? 'Résultats de votre recherche':'Les 5 derniers projets';
 
         return $this->render('home/index.html.twig', [
             'projects' => $projects,
-            'form' =>$form->createView()
+            'form' =>$form->createView(),
+            'Arraytitle' => $arrayTitle
         ]);
     }
 }
