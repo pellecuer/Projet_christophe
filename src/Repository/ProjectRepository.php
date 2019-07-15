@@ -46,21 +46,25 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function findLikeProjects(ProjectSearch $search)
     {
-        $query = $this->findAllDescQuery();        
+        $query = $this->findAllDescQuery()->setMaxResults(5);        
 
         if ($search->getDate()) {
+            
             $query = $query
-                ->andWhere(':date BETWEEN p.startDate AND p.endDate')                
-                ->setParameter('date', $search->getDate());
+                ->andWhere(':date BETWEEN p.startDate AND p.endDate')                       
+                ->setParameter('date', $search->getDate())
+                ->setMaxResults(1000);
         }
         
         if ($search->getName()) {
             $query = $query
-                ->andWhere('p.name LIKE :name')
-                ->setParameter('name', '%'.$search->getName().'%' );
+                ->andWhere('p.name LIKE :name')                
+                ->setParameter('name', '%'.$search->getName().'%' )
+                ->setMaxResults(1000);
         } 
         
-        return $query->getQuery()->getResult();
+        return $query
+            ->getQuery()->getResult();
     }
 
         
