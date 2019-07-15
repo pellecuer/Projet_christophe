@@ -21,9 +21,15 @@ class HomeController extends AbstractController
         $search = new ProjectSearch();
         $form =$this->createForm(ProjectSearchType::class, $search);
         $form->handleRequest($request); 
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $arrayTitle = 'Résultats de votre recherche';
+        }
+        else {
+            $arrayTitle = 'Les 5 derniers projets';
+        }
              
         $projects = $repository->findLikeProjects($search);
-        $arrayTitle = $request ? 'Résultats de votre recherche':'Les 5 derniers projets';
 
         return $this->render('home/index.html.twig', [
             'projects' => $projects,
