@@ -27,12 +27,11 @@ class ProjectRepository extends ServiceEntityRepository
     /**
      * findAllVisibleQuery
      *
-     * @return Query
+     * @return Project[] Returns an array of Project objects
      */
-    public function findAllVisibleQuery(ProjectSearch $search): Query
+    public function findAllVisibleQuery(ProjectSearch $search)
     {
-        $query = $this->findAllDescQuery();
-        // dump($search);die;
+        $query = $this->findAllDescQuery();        
 
         if ($search->getDate()) {
             $query = $query
@@ -44,9 +43,9 @@ class ProjectRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('p.name LIKE :name')
                 ->setParameter('name', '%'.$search->getName().'%' );
-        }        
+        } 
         
-        return $query->getQuery();
+        return $query->getQuery()->getResult();
     }
 
         

@@ -17,15 +17,16 @@ class HomeController extends AbstractController
      * @Route("/home", name="home")
      */
     public function index(ProjectRepository $repository, Request $request)
-    {
+    {        
         $search = new ProjectSearch();
-        $form =$this->createForm(ProjectSearchType::class, $search);        
-
-        $projects = $repository->findAllVisibleQuery($search);        
-
+        $form =$this->createForm(ProjectSearchType::class, $search);
+        $form->handleRequest($request); 
+             
+        $projects = $repository->findAllVisibleQuery($search);     
+        // dump($projects);die; 
         // $projects= $repository->findAll();
 
-        $form->handleRequest($request);     
+           
 
         return $this->render('home/index.html.twig', [
             'projects' => $projects,

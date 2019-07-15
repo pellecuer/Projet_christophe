@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
 
 class ProjectSearch
 {
@@ -10,12 +11,14 @@ class ProjectSearch
     private $id;
 
     /**
-     * @var string|null
+     * @ORM\Column(type="date", nullable=true)
      */
     private $date;
 
+    
+
     /**
-     * @var string|null
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 

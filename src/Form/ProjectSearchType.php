@@ -13,11 +13,11 @@ class ProjectSearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('date', DateType::class, [
+        $builder            
+            ->add('date', DateType::class, [                
+                'widget' => 'single_text',
                 'required' => false,
                 'label' => false,
-                'widget' => 'single_text',
             ])
             
             ->add('name', TextType::class, [

@@ -43,7 +43,8 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project")
      */
-    private $activity;
+    private $activities
+    ;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="project", cascade={"persist"})
@@ -54,7 +55,7 @@ class Project
 
     public function __construct()
     {
-        $this->activity = new ArrayCollection();
+        $this->activities = new ArrayCollection();
         $this->tjms = new ArrayCollection();             
     }
 
@@ -114,30 +115,30 @@ class Project
     }
 
     /**
-     * @return Collection|Activity[]
+     * @return Collection|Activities[]
      */
-    public function getActivity(): Collection
+    public function getActivities(): Collection
     {
-        return $this->activity;
+        return $this->activities;
     }
 
-    public function addActivity(Activity $activity): self
+    public function addActivities(Activities $activities): self
     {
-        if (!$this->activity->contains($activity)) {
-            $this->activity[] = $activity;
-            $activity->setProject($this);
+        if (!$this->activities->contains($activities)) {
+            $this->activities[] = $activities;
+            $activities->setProject($this);
         }
 
         return $this;
     }
 
-    public function removeActivity(Activity $activity): self
+    public function removeActivity(Activities $activities): self
     {
-        if ($this->activity->contains($activity)) {
-            $this->activity->removeElement($activity);
+        if ($this->activities->contains($activities)) {
+            $this->activities->removeElement($activities);
             // set the owning side to null (unless already changed)
-            if ($activity->getProject() === $this) {
-                $activity->setProject(null);
+            if ($activities->getProject() === $this) {
+                $activities->setProject(null);
             }
         }
 

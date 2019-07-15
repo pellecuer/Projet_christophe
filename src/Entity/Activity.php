@@ -35,7 +35,7 @@ class Activity
     
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="Activity")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="activities")
      */
     private $project;
 
