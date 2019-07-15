@@ -19,6 +19,7 @@ class ProjectSearchType extends AbstractType
                 'label' => false,
                 'widget' => 'single_text',
             ])
+            
             ->add('name', TextType::class, [
                 'required' => false,
                 'label' => false,
