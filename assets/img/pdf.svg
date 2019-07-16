@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   viewBox="0 0 43 56"
+   version="1.1"
+   id="svg851"
+   sodipodi:docname="pdf.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)">
+  <metadata
+     id="metadata857">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>pdfFichier 1</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs855" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     id="namedview853"
+     showgrid="false"
+     inkscape:zoom="9.6071429"
+     inkscape:cx="21.5"
+     inkscape:cy="28"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg851" />
+  <title
+     id="title837">pdfFichier 1</title>
+  <g
+     id="Calque_2"
+     data-name="Calque 2">
+    <g
+       id="Calque_1-2"
+       data-name="Calque 1">
+      <path
+         d="M28.3,1.5A5.37,5.37,0,0,0,24.5,0H9.5A9.56,9.56,0,0,0,0,9.5v37A9.56,9.56,0,0,0,9.5,56h24A9.56,9.56,0,0,0,43,46.5V17.7a5.44,5.44,0,0,0-1.7-4Zm9.4,13H30.1A2.48,2.48,0,0,1,27.6,12V5Zm2.3,32A6.49,6.49,0,0,1,33.5,53H9.5A6.49,6.49,0,0,1,3,46.5V9.5A6.49,6.49,0,0,1,9.5,3H24.6v9a5.55,5.55,0,0,0,5.5,5.5H40v29Z"
+         id="path839"
+         style="fill:#0e4487;fill-opacity:1" />
+      <path
+         d="M12,34.61a.86.86,0,0,1-1.72,0A.86.86,0,0,1,12,34.61Z"
+         id="path841"
+         style="fill:#0e4487;fill-opacity:1" />
+      <path
+         d="M13.6,37.83V29.45H15l.09.82A2.36,2.36,0,0,1,17,29.32a3,3,0,0,1,3,3.09,2.89,2.89,0,0,1-3,3.1,2.39,2.39,0,0,1-2-.84v3.16Zm5-5.42a1.68,1.68,0,0,0-3.36,0,1.68,1.68,0,0,0,3.36,0Z"
+         id="path843"
+         style="fill:#0e4487;fill-opacity:1" />
+      <path
+         d="M27.24,27v8.38H25.87l-.09-.81a2.16,2.16,0,0,1-1.91,1,2.91,2.91,0,0,1-3.05-3.1,2.83,2.83,0,0,1,3-3.09,2.45,2.45,0,0,1,2,.94V27ZM22.29,32.4a1.7,1.7,0,1,0,3.39,0A1.69,1.69,0,0,0,24,30.67,1.63,1.63,0,0,0,22.29,32.4Z"
+         id="path845"
+         style="fill:#0e4487;fill-opacity:1" />
+      <path
+         d="M29,35.36V30.82H27.89V29.53H29v-.39a2.14,2.14,0,0,1,2.25-2.32,2.82,2.82,0,0,1,1.53.48l-.53,1.1a1.62,1.62,0,0,0-.9-.32c-.51,0-.89.34-.89,1.06v.39H32.2v1.29H30.46v4.54Z"
+         id="path847"
+         style="fill:#0e4487;fill-opacity:1" />
+    </g>
+  </g>
+</svg>

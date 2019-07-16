@@ -2,11 +2,11 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block body %}
-{% include 'home/_searchProject.html.twig' %}
+{% block searchProject %}{% include 'home/_searchProject.html.twig' %} {% endblock %}
 
+{% block body %} 
 <div class="container lastProjects">
-    <h5>{{ Arraytitle }}</h5>
+    <h5 class="label VaderBlue">{{ Arraytitle }}</h5>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -14,6 +14,7 @@
             <th scope="col">Code</th>
             <th scope="col">Date de début</th>
             <th scope="col">Date de fin</th>
+            <th scope="col" class="text-center">Voir le prévisionnel</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +24,7 @@
             <td>{{ project.code }}</td>            
             <td>{{ project.startDate|date('d M Y') }}</td>
             <td>{{ project.endDate|date('d M Y') }}</td>
-            <td><a class="btn btn-primary" href={{path('show', {'id': project.id}) }} role="button"><i class="far fa-clock"></i></a></td>
+            <td class="text-center"><a class="btn btn-default" href={{path('show', {'id': project.id}) }} role="button"><i class="far fa-clock"></i></a></td>
             </tr>
             {% endfor %}
             

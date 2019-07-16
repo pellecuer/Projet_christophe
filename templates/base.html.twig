@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="/assets/css/style.css">
+        
         {# <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> #}
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css"/>      
         {# <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
@@ -13,45 +13,56 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         
         <link rel="sylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-        
+        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
         
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        <div class="mx-5 conteneurAll">
-            {# Jumbotron #}
-            <div class="container-fluid">
-                <div class="jumbotron mt-3">
-                    <h1 class="display-4">Gestion de projet</h1>
-                    <p class="lead">Plannification de temps previsionnel</p>            
-                </div>
-            </div>           
-
-            {# navbar #} 
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href={{ path('home') }}><i class="fas fa-home"></i><span class="ml-1">Accueil</span></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav"> 
+        {# navbar #}
+        <div class="container">
+            <nav class="navbar mx-5 fixed-top navbar-expand-lg justify-content-between navbar-white bg-VaderBlue">           
+                <a class="navbar-brand" href={{ path('home') }}> <img src="{{ asset('build/images/logo_amiltone.0d871272.png') }}" width="300" height="auto" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"> 
                             <a class="nav-item nav-link" href={{ path('project_index') }}><i class="fas fa-project-diagram"></i><span class="ml-1">Projets</span></a>
-                            <a class="nav-item nav-link" href={{path('collaborators_index')}}><i class="fas fa-user"></i><span class="ml-1">Collaborateurs</span></a>
-                            <a class="nav-item nav-link" href={{path('pole_index')}}><i class="fas fa-th-large"></i><span class="ml-1">Poles</span></a>  
-                            <a class="nav-item nav-link" href={{path('profile_index')}}><i class="fas fa-user"></i><span class="ml-1">Profils</span></a>
-                            <a class="nav-item nav-link" href={{path('tjm_index')}}><i class="far fa-clock"></i><span class="ml-1">TJM</span></a>                   
-                        </div>
-                    </div>
-                </nav>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link text-white" href={{path('collaborators_index')}}><i class="fas fa-user"></i><span class="ml-1">Collaborateurs</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link text-white" href={{path('pole_index')}}><i class="fas fa-th-large"></i><span class="ml-1">Poles</span></a>  
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link text-white" href={{path('profile_index')}}><i class="fas fa-user"></i><span class="ml-1">Profils</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item nav-link text-white" href={{path('tjm_index')}}><i class="far fa-clock"></i><span class="ml-1">TJM</span></a>                   
+                        </li>
+                    </ul>                        
+                </div>            
+            </nav>
+        </div>
+        {# Jumbotron #}            
+        <div class="jumbotron jumbotron-header">
+            {# <h1 class="display-5 rounded gestionProjet text-white text-center">GESTION DE PROJET</h1>
+            <p class="lead EarlGrey text-center "><span class="px-2 rounded">Plannification du temps previsionnel</span></p> #}
+            {% block searchProject %}{% endblock %}     
+        </div>
+                     
+
+            {# navbar #}            
+            
+           <div class="mx-5 conteneurAll"> 
+                {% block body %}{% endblock %}
             </div>
-        {% block body %}{% endblock %}
-        <div class="footer bg-dark">
-            <p class= "text-white text-center"> <i class="far fa-copyright"></i> <span class="ml-1">Amiltone 2019 - Tous droits réservés </span> </p>
-        </div>
-        </div>
-        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+            <div class="footer custom-footer">
+                <p class= "text-white text-center"> <i class="far fa-copyright"></i> <span class="ml-1">Amiltone 2019 - Tous droits réservés </span> </p>
+            </div>        
        <script src="https://code.jquery.com/jquery-3.3.1.js"></src>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -67,9 +78,7 @@
 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 
-        <script src="{{ asset('build/runtime.js') }}"></script>     
-        <script src="{{ asset('build/app.js') }}"></script>
-        <script src="{{ encore_entry_script_tags('app') }} "></script>   
+        
                 
         
         <script>
@@ -466,7 +475,7 @@
                 $card.append($cardFooter);
             }
          });
-        </script>      
+        </script>    
     {% block javascripts %}{% endblock %}
     </body>
 </html>

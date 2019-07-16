@@ -122,7 +122,7 @@ class Project
         return $this->activities;
     }
 
-    public function addActivities(Activities $activities): self
+    public function addActivities(Activity $activities): self
     {
         if (!$this->activities->contains($activities)) {
             $this->activities[] = $activities;
@@ -132,7 +132,7 @@ class Project
         return $this;
     }
 
-    public function removeActivity(Activities $activities): self
+    public function removeActivity(Activity $activities): self
     {
         if ($this->activities->contains($activities)) {
             $this->activities->removeElement($activities);

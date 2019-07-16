@@ -1,20 +1,152 @@
+/* Amiltone Colors */
+.Bluck {
+  color: #0b132b;
+}
 
+.VaderBlue {
+  color: #293286;
+}
+.bg-VaderBlue {
+  background-color: #293286;
+}
+
+.SkywalkerBlue {
+  color: #2f57a3;
+}
+.bg-SkywalkerBlue {
+  background-color: #2f57a3;
+}
+
+.PurpleHaze {
+  color: #ce3089;
+}
+.DarkEarlGrey {
+  color: #3c3f47;
+}
+.bg-DarkEarlGrey {
+  background-color: #3c3f47;
+}
+
+.EarlGrey {
+  color: #c2c1c2;
+}
+.bg-EarlGrey {
+  background-color: #c2c1c2;
+}
+
+.LightEarlGrey {
+  color: #eaeaea;
+}
+.LighterEarlGrey {
+  color: #f9f9f9;
+}
+
+/* Amiltone Typo */
+body {
+  font-family: "Lato", sans-serif;
+}
+
+h1 {
+  font-family: "RalewayBold";
+}
+
+hr {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+  color: white;
+  background-color: white;
+}
 
 .conteneurAll {
-    min-height: 1000px;
+  min-height: 1500px;
+}
+
+/* Bootstrap buttons */
+.btn-default {
+  /* purpleHaze */
+  background-color: #ce3089;
+  border-color: #ce3089;
+  color: #fff;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
+.open .dropdown-toggle.btn-default {
+  /* Buck  */
+  background-color: #0b132b;
+  color: #fff;
+  border-color: #0b132b;
+}
+.btn-search {
+  /* purpleHaze */
+  background-color: #293286;
+  border-color: #293286;
+  color: #fff;
+}
+
+/* header */
+.jumbotron-header {
+  background-color: #2f57a3;
+  color: #fff;
+  padding: 100px 25px;
+}
+.container-fluid {
+  padding: 60px 50px;
+}
+
+/* Navbar */
+.navbar {
+   margin-bottom: 0;
+   background-color: #2f57a3;
+   z-index: 9999;
+   border: 0;
+   font-size: 1.2em !important;
+   line-height: 1.42857143 !important;
+   letter-spacing: 4px;
+   border-radius: 0;
+ } 
+ .navbar li a, .navbar .navbar-brand {
+   color: #fff !important;
+ } 
+ .navbar-nav li a:hover, .navbar-nav li.active a {
+   color: #2f57a3 !important;
+   background-color: #fff !important;
+ } 
+ .navbar-default .navbar-toggle {
+   border-color: transparent;
+   color: #fff !important;
  }
- 
- .jumbotron {
-    background-color: #13467a;
+
+ /* Footer */
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #2f57a3;
+   color: white;
+   text-align: center;
+   vertical-align: middle;
  }
- 
- .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: red;
-    color: white;
-    text-align: center;
-  }
- 
+
+ /* loader */
+ .loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
