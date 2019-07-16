@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}Projets{% endblock %}
 
 {% block body %}
     
@@ -21,11 +21,11 @@
 
     {# datatable and bottoms #}
     <div class="container">
-        <h1 class="text-center">{{ projectName }}</h1>   
+        <h1 class="text-center VaderBlue">{{ projectName }}</h1>   
         <div class="mb-5 mx-5 text-right">
-            <button type="button" class="btn btn-primary previous"><i class="fas fa-step-backward"></i></button>
+            <button type="button" class="btn btn-default previous"><i class="fas fa-step-backward"></i></button>
             <span class="" id="currentMonth">{{ currentMonth }}</span>
-            <div class="btn btn-primary next"><i class="fas fa-step-forward"></i></div>    
+            <div class="btn btn-default next"><i class="fas fa-step-forward"></i></div>    
         </div>
         <table id="example" class="display" style="width:100%">
             <thead>           
@@ -77,7 +77,7 @@
 
             </tbody>            
         </table>
-        <button class="btn btn-primary addRow mb-2" type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>    
+        <button class="btn btn-default addRow mb-2" type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>    
     </div>
 
 {% endblock %}
