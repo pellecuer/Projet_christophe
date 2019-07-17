@@ -1,23 +1,29 @@
 {{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.code) }}
-    {{ form_row(form.startDate) }}
-    {{ form_row(form.endDate) }}
-    {# form.Tjms.vars.prototype     #}
-    {# <div class="col-sm-8 col-sm-offset-4" id="exp_list" data-prototype="{{ form_widget(form.Tjms.vars.prototype|e('html_attr')) }}"> #}
-    <div class="col-sm-8 offset-sm-1" id="exp_list" data-prototype="{{form_widget(form.Tjms.vars.prototype)|e('html_attr')}}">        
-        {% for row in form.Tjms %}        
-        <div class="card mb-2">
-            <div class="card-header bg-warning">
-                <strong>TJM</strong>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">
-                    {{ form_row(row)}}
-                </h5>
-            </div>
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+            <a class="btn btn-secondary" href="{{ path('project_index') }}">back to list</a>
+            {{ form_row(form.name) }}
+            {{ form_row(form.code) }}
+            {{ form_row(form.startDate) }}
+            {{ form_row(form.endDate) }}
+             
+            {# {{ include('project/_delete_form.html.twig') }} #}
         </div>
-        {% endfor %}
-    </div>
-    {# <button class="btn">{{ button_label|default('Save') }}</button> #}
+        <div class="col-md-6">
+            <div class="col-sm-8 offset-2" id="exp_list" data-prototype="{{form_widget(form.Tjms.vars.prototype)|e('html_attr')}}">        
+            {% for row in form.Tjms %}        
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ form_row(row)}}
+                    </h5>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>    
+    {# form.Tjms.vars.prototype     #}
+    {# <div class="col-sm-8 col-sm-offset-4" id="exp_list" data-prototype="{{ form_widget(form.Tjms.vars.prototype|e('html_attr')) }}"> #}    
+    
 {{ form_end(form) }}

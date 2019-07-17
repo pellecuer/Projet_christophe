@@ -41,7 +41,7 @@ class Project
     private $endDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project", cascade={"persist"})
      */
     private $activities
     ;
@@ -122,23 +122,23 @@ class Project
         return $this->activities;
     }
 
-    public function addActivities(Activity $activities): self
+    public function addActivities(Activity $activity): self
     {
-        if (!$this->activities->contains($activities)) {
-            $this->activities[] = $activities;
-            $activities->setProject($this);
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->setProject($this);
         }
 
         return $this;
     }
 
-    public function removeActivity(Activity $activities): self
+    public function removeActivity(Activity $activity): self
     {
-        if ($this->activities->contains($activities)) {
-            $this->activities->removeElement($activities);
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
             // set the owning side to null (unless already changed)
-            if ($activities->getProject() === $this) {
-                $activities->setProject(null);
+            if ($activity->getProject() === $this) {
+                $activity->setProject(null);
             }
         }
 
