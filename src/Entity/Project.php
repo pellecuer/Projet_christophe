@@ -41,13 +41,13 @@ class Project
     private $endDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $activities
     ;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="project", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $tjms;
 
