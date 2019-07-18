@@ -36,7 +36,7 @@
                 <tr>
                     <th>Poles</th>                               
                     {% for calendar in calendars %}
-                        <th>{{ calendar|localizeddate('none', 'none', 'fr', null, 'MMM')}}</th>                    
+                        <th>{{ calendar|localizeddate('none', 'none', 'fr', null, 'MMM yy')}}</th>                    
                     {% endfor %}
                     <th></th>
                 </tr>

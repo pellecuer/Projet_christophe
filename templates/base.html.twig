@@ -54,15 +54,8 @@
         </div>
         {# Jumbotron #}
         {% block searchProject %}{% endblock %}
-                 
-        
-            {# <h1 class="display-5 rounded gestionProjet text-white text-center">GESTION DE PROJET</h1>
-            <p class="lead EarlGrey text-center "><span class="px-2 rounded">Plannification du temps previsionnel</span></p> #}
-               
-       
-                     
 
-            {# navbar #}            
+        {# navbar #}            
             
            <div class="mx-5 conteneurAll"> 
                 {% block body %}{% endblock %}
@@ -228,7 +221,7 @@
 
                             //Update on next, previous, enter                    
                             var id = $(this).attr('id');                        
-                            var emptyMonth = table.column(this).title();                                      
+                            var emptyMonth = table.column(this).title();                                                      
                             var projectName = $('#projectName').text(); 
                             var profileName = table.row($(this).parents('tr')).data()[0];                                               
                             var poleName = $(this).closest('tr').prevAll('.poleclickable').first().text();                                                                                                                                       

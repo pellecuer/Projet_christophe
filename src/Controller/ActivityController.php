@@ -252,7 +252,7 @@ class ActivityController extends AbstractController
     {        
         $id = $request->request->get('id');
         $rank = $request->request->get('rank');
-        $date = trim($request->request->get('emptyMonth')); 
+        $date = trim($request->request->get('emptyMonth'));        
            
         $projectName =  trim($request->request->get('projectName'));        
         $project = $this->getDoctrine()
@@ -277,7 +277,7 @@ class ActivityController extends AbstractController
             
 
         //Search if Activity exist           
-        $dateTime = \DateTime::createFromFormat('M-y', $date);
+        $dateTime = \DateTime::createFromFormat('MMM Y', $date);
         $activity = $repository->findOneByDateByProjectByProfileByPole($dateTime, $project, $profile, $pole);
         
         if ($activity) {
