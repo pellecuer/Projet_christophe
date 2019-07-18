@@ -69,7 +69,10 @@ hr {
 
 .conteneurAll {
   min-height: 1500px;
+  margin-top: 6em;
 }
+
+
 
 /* Bootstrap buttons */
 .btn-default {
@@ -106,7 +109,7 @@ hr {
 }
 
 /* Navbar */
-.navbar {
+/* .navbar {
    margin-bottom: 0;
    background-color: #2f57a3;
    z-index: 9999;
@@ -115,18 +118,27 @@ hr {
    line-height: 1.42857143 !important;
    letter-spacing: 4px;
    border-radius: 0;
- } 
+ }
+ */
  .navbar li a, .navbar .navbar-brand {
    color: #fff !important;
- } 
+ }
+ 
  .navbar-nav li a:hover, .navbar-nav li.active a {
    color: #2f57a3 !important;
    background-color: #fff !important;
- } 
+ }
  .navbar-default .navbar-toggle {
    border-color: transparent;
    color: #fff !important;
- }
+ } 
+ .navbar-nav li a:visited{
+   color:white;
+ } 
+.text-default {
+  /* ValderBlue */
+  color: #293286;
+}
 
  /* Footer */
 .footer {

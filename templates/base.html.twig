@@ -28,8 +28,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <ul class="navbar-nav">
-                        <li class="nav-item"> 
-                            <a class="nav-item nav-link" href={{ path('project_index') }}><i class="fas fa-project-diagram"></i><span class="ml-1">Projets</span></a>
+                        <li class="nav-item dropdown"> 
+                            <a class="nav-link dropdown-toggle" href={{ path('project_index') }} id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-project-diagram"></i><span class="ml-1">Projets</span></a>
+                            <div class="dropdown-menu bg-VaderBlue" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href={{ path('project_new') }}>Créer</a>
+                                <a class="dropdown-item" href={{ path('project_index') }}>Liste</a>
+                            </div>
+
                         </li>
                         <li class="nav-item">
                             <a class="nav-item nav-link text-white" href={{path('collaborators_index')}}><i class="fas fa-user"></i><span class="ml-1">Collaborateurs</span></a>
@@ -47,12 +52,13 @@
                 </div>            
             </nav>
         </div>
-        {# Jumbotron #}            
-        <div class="jumbotron jumbotron-header">
+        {# Jumbotron #}
+        {% block searchProject %}{% endblock %}            
+        
             {# <h1 class="display-5 rounded gestionProjet text-white text-center">GESTION DE PROJET</h1>
             <p class="lead EarlGrey text-center "><span class="px-2 rounded">Plannification du temps previsionnel</span></p> #}
-            {% block searchProject %}{% endblock %}     
-        </div>
+               
+       
                      
 
             {# navbar #}            
