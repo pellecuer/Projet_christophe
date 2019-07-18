@@ -3,15 +3,19 @@
 {% block title %}Projets{% endblock %}
 
 {% block body %}
-    
-    {# Messages flash #}            
-    <div class="invisible" id="response">
-        <div class="alert alert-success">Vous avez attribué la note de <span class="badge badge-secondary" id="rank"></span> </div>
-        {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message}}
+    <div class="container">
+        {# Messages flash #}            
+        <div class="invisible" id="response">
+            <div class="alert alert-success">Vous avez attribué la note de <span class="badge badge-secondary" id="rank"></span> </div>
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message}}
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <div class="invisible" id="error">
+            <div class="alert alert-danger"></div>            
+        </div>
     </div>
 
     {# Invisible key #}

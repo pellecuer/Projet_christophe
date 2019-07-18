@@ -20,6 +20,11 @@
 .PurpleHaze {
   color: #ce3089;
 }
+
+.bg-PurpleHaze {
+  background-color: #ce3089;
+}
+
 .DarkEarlGrey {
   color: #3c3f47;
 }
@@ -46,9 +51,9 @@ body {
   font-family: "Lato", sans-serif;
 }
 
-h1 {
+/* h1 {
   font-family: "RalewayBold";
-}
+} */
 
 hr {
   display: block;

@@ -85,7 +85,9 @@ class ActivityController extends AbstractController
         $all = [];        
         $poleName = ''; 
         $profileName = '';
-        $rowProfile = [];  
+        $rowProfile = [];
+        $col2 = [];
+        $stringCalendars=[];
         foreach ($poles as $pole){
             $poleName = $pole->getname();            
             foreach($profiles as $profile){                

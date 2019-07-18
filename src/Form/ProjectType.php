@@ -33,11 +33,11 @@ class ProjectType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true
             ])
-            ->add('save', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-success'
-                ]                
-            ])
+            // ->add('save', SubmitType::class, [
+            //     'attr' => [
+            //         'class' => 'btn btn-success'
+            //     ]                
+            // ])
         ;
     }
 

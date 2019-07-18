@@ -6,8 +6,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @UniqueEntity(fields="name", message="Cet nom éxiste déjà")
+ * @UniqueEntity(fields="code", message="Cet code éxiste déjà")
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
  */
 class Project
@@ -20,12 +24,12 @@ class Project
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $code;   
 
@@ -41,13 +45,13 @@ class Project
     private $endDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="App\Entity\Activity", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $activities
     ;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="project", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Tjm", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $tjms;
 
@@ -122,23 +126,23 @@ class Project
         return $this->activities;
     }
 
-    public function addActivities(Activity $activities): self
+    public function addActivities(Activity $activity): self
     {
-        if (!$this->activities->contains($activities)) {
-            $this->activities[] = $activities;
-            $activities->setProject($this);
+        if (!$this->activities->contains($activity)) {
+            $this->activities[] = $activity;
+            $activity->setProject($this);
         }
 
         return $this;
     }
 
-    public function removeActivity(Activity $activities): self
+    public function removeActivity(Activity $activity): self
     {
-        if ($this->activities->contains($activities)) {
-            $this->activities->removeElement($activities);
+        if ($this->activities->contains($activity)) {
+            $this->activities->removeElement($activity);
             // set the owning side to null (unless already changed)
-            if ($activities->getProject() === $this) {
-                $activities->setProject(null);
+            if ($activity->getProject() === $this) {
+                $activity->setProject(null);
             }
         }
 
