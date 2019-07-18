@@ -20,8 +20,8 @@
     <body>
         {# navbar #}
         <div class="container">
-            <nav class="navbar mx-5 fixed-top navbar-expand-lg justify-content-between navbar-white bg-VaderBlue">           
-                <a class="navbar-brand" href={{ path('home') }}> <img src="{{ asset('build/images/logo_amiltone.0d871272.png') }}" width="300" height="auto" alt=""></a>
+            <nav class="navbar fixed-top navbar-expand-lg justify-content-between navbar-white bg-VaderBlue">           
+                <a class="navbar-brand" href={{ path('home') }}> <img src="{{ asset('build/images/logo_amiltone.0d871272.png') }}" width="auto" height="50" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -428,7 +428,7 @@
 
                 $collectionHolder.data('index', index + 1);
                 //create the card
-                var $card = $("<div class= 'card card-warning'><div class='card-heading'></div></div>");
+                var $card = $("<div class='card'></div>");
 
                 //create the card body and append the form to it
                 var $cardBody = $("<div class='card-body'></div>").append(newForm);

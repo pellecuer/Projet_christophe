@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ActivityRepository")
@@ -29,6 +30,7 @@ class Activity
     }
     
     /**
+     * @Assert\Range(min=0, max=9)
      * @ORM\Column(type="integer")
      */
     private $rank;
