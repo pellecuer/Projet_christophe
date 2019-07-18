@@ -12,11 +12,20 @@ class CollaboratorsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName')
-            ->add('lastName')
-            ->add('codeFirstName')
-            ->add('email')
-            ->add('Profile')
+            ->add('firstName', null, [
+                'label' =>'Prénom'
+            ])
+            ->add('lastName', null, [
+                'label' =>'Nom'
+            ])
+            ->add('codeFirstName', null, [
+                'label' =>'Code'
+            ])
+            ->add('email', null, [
+                'label' =>'Email'
+            ])->add('Profile', null, [
+                'label' =>'Profil'
+            ])
         ;
     }
 

@@ -3,9 +3,13 @@
 {% block title %}New Collaborators{% endblock %}
 
 {% block body %}
-    <h1>Create new Collaborators</h1>
-
-    {{ include('collaborators/_form.html.twig') }}
-
-    <a href="{{ path('collaborators_index') }}">back to list</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+        <h1>Ajouter un collaborateur</h1>
+            {{ include('collaborators/_form.html.twig') }}
+            <a href="{{ path('collaborators_index') }}">Retour à la liste</a>        
+        </div>
+    </div>    
+</div>
 {% endblock %}
