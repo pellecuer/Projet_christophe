@@ -83,30 +83,11 @@
         
         <script>
         $(document).ready(function() {
-             
-
-
             // function slide down
             $(".child").hide();            
             $(".poleclickable").click(function(){
                 $(this).closest('tr').nextUntil('.poleclickable').slideToggle();                
             });
-            
-            // $('#example tbody').on( 'click', 'tr', function () {                
-            //    alert( table.row( this ).data() );
-            //} );
-            
-            //function calcul
-            //var total = 1;
-            /* function calcAll(){
-                // select a column
-                $(".calculate-for").each(function (){
-                    if (!isNaN(parseFloat($(this).val()))) {
-                        qnty = parseFloat($(this).val());
-                    }
-                    var total += qnty;
-                }
-            } */
            
             
             //function Autocomplete Ajax
@@ -129,8 +110,6 @@
                 }
             });
 
-
-            
             //function autocomplete search
             $(function (){
                  var projects = [
@@ -163,10 +142,7 @@
                 $( ".profile" ).autocomplete({
                 source: profiles
                 });
-            };           
-            
-                    
-                    
+            };     
             
             //call functions on document Ready
             editable();
@@ -176,8 +152,6 @@
             tabPrevious();
             autocomplete();
             //addClassEditFor();
-
-            
 
 
             //Function editable
@@ -213,8 +187,6 @@
                 nextOrPrevious
             }
 
-            
-
 
             //Function tabNext
             function tabNext(){
@@ -222,38 +194,59 @@
                     var keyCode = e.keyCode || e.wich;                 
                     if ((e.keyCode === 9) || (e.keyCode === 39) || (e.keyCode === 13)) {
                         e.preventDefault();
-                        $( this).css( "background-color", "transparent"); 
-                        var nextOrPrevious = $(this).closest('td').next("td.edit-for");
-                        cssOnTab(nextOrPrevious);
 
-                        //Update on next, previous, enter                    
-                        var rank = $(this).html();                                                       
-                        var id = $(this).attr('id');                        
-                        var emptyMonth = table.column(this).title();                                      
-                        var projectName = $('#projectName').text(); 
-                        var profileName = table.row($(this).parents('tr')).data()[0];                                               
-                        var poleName = $(this).closest('tr').prevAll('.poleclickable').first().text();                                                                                                                                       
-                                
-                        $.ajax({
-                            url:'/activity/update',
-                            type: "POST",
-                            dataType: "json",
-                            data: {
-                                "rank": rank,
-                                "id": id,
-                                "emptyMonth": emptyMonth,                            
-                                "projectName": projectName,
-                                "profileName": profileName,
-                                "poleName": poleName
-                            },
-                            async: true,
-                            success: function (data)
-                            {
-                                console.log(data);
-                                $( '#rank' ).text(data.rank);
-                                $('#response').addClass("visible").removeClass("invisible");;                       
-                            }
-                        });
+                        //initialize css
+                        $( this).css( "background-color", "transparent");
+                        $( this).removeClass("text-danger");
+                        $('#response').removeClass("visible").addClass("invisible");  
+                        $('#error').removeClass("visible").addClass("invisible"); 
+
+                        //function validate
+                        var error = 0;
+                        var rank = $(this).html();
+                        //alert('coco');
+                        var availableRank = [1,2,3,4,5,6,7,8,9];
+                        if (jQuery.inArray(parseInt(rank), availableRank) ==-1){
+                            //Vous devez entrer un chiffre compris entre 1 et 9
+                            var error = 1;
+                            var errorMsg = 'Vous devez entrer un chiffre compris entre 1 et 9';
+                            $('#error').text(errorMsg);
+                            $('#error').addClass("visible alert alert-danger").removeClass("invisible");
+                            $( this).focus();
+                            $( this).addClass("text-danger");
+
+                        } else {                            
+                            var nextOrPrevious = $(this).closest('td').next("td.edit-for");
+                            cssOnTab(nextOrPrevious);
+
+                            //Update on next, previous, enter                    
+                            var id = $(this).attr('id');                        
+                            var emptyMonth = table.column(this).title();                                      
+                            var projectName = $('#projectName').text(); 
+                            var profileName = table.row($(this).parents('tr')).data()[0];                                               
+                            var poleName = $(this).closest('tr').prevAll('.poleclickable').first().text();                                                                                                                                       
+                                    
+                            $.ajax({
+                                url:'/activity/update',
+                                type: "POST",
+                                dataType: "json",
+                                data: {
+                                    "rank": rank,
+                                    "id": id,
+                                    "emptyMonth": emptyMonth,                            
+                                    "projectName": projectName,
+                                    "profileName": profileName,
+                                    "poleName": poleName
+                                },
+                                async: true,
+                                success: function (data)
+                                {
+                                    console.log(data);
+                                    $( '#rank' ).text(data.rank);
+                                    $('#response').addClass("visible").removeClass("invisible");;                       
+                                }
+                            });
+                        } 
                     }
                  })
             }   
