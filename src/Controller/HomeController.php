@@ -37,4 +37,5 @@ class HomeController extends AbstractController
             'Arraytitle' => $arrayTitle
         ]);
     }
+
 }
