@@ -22,8 +22,8 @@
             <tr>
             <th scope="row">{{ project.name }}</th>
             <td>{{ project.code }}</td>            
-            <td>{{ project.startDate|date('d M Y') }}</td>
-            <td>{{ project.endDate|date('d M Y') }}</td>
+            <td>{{ project.startDate|localizeddate('none', 'none', 'fr', null, 'dd MMM Y') }}</td>
+            <td>{{ project.endDate|localizeddate('none', 'none', 'fr', null, 'dd MMM Y') }}</td>
             <td class="text-center"><a class="btn btn-default" href={{path('show', {'id': project.id}) }} role="button"><i class="far fa-clock"></i></a></td>
             </tr>
             {% endfor %}

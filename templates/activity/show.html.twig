@@ -28,7 +28,7 @@
         <h1 class="text-center VaderBlue">{{ projectName }}</h1>   
         <div class="mb-5 mx-5 text-right">
             <button type="button" class="btn btn-default previous"><i class="fas fa-step-backward"></i></button>
-            <span class="" id="currentMonth">{{ currentMonth }}</span>
+            <span class="" id="currentMonth">{{ currentMonth|localizeddate('none', 'none', 'fr', null, 'MMM Y') }}</span>
             <div class="btn btn-default next"><i class="fas fa-step-forward"></i></div>    
         </div>
         <table id="example" class="display" style="width:100%">
@@ -36,7 +36,7 @@
                 <tr>
                     <th>Poles</th>                               
                     {% for calendar in calendars %}
-                        <th>{{ calendar }}</th>                    
+                        <th>{{ calendar|localizeddate('none', 'none', 'fr', null, 'MMM')}}</th>                    
                     {% endfor %}
                     <th></th>
                 </tr>

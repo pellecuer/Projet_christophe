@@ -115,7 +115,7 @@ class ActivityController extends AbstractController
         $nbColumns = count($stringCalendars)+1;
         // dump($nbColumns);die;
 
-        return $this->render('index/show.html.twig', [            
+        return $this->render('activity/show.html.twig', [            
             'calendars' => $stringCalendars,
             'key' => $key,
             'nbColumns' =>$nbColumns,
