@@ -18,7 +18,9 @@ class TjmType extends AbstractType
             ->add('pole', EntityType::class, [
                 'class' => Pole::class
             ])
-            ->add('amount')                      
+            ->add('amount', null, [
+                'label' => 'Montant'
+            ])                      
         ;
     }
 
