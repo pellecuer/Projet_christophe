@@ -14,7 +14,7 @@ use App\Form\ProjectSearchType;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      */
     public function index(ProjectRepository $repository, Request $request)
     {        
