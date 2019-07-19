@@ -303,7 +303,7 @@ class ActivityController extends AbstractController
 
         $response = new Response(json_encode([
             'id' =>  $id,
-            'rank'=> $dateTime->format('m Y')
+            'rank'=> $rank
         ]));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
