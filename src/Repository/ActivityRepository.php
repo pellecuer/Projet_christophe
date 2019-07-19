@@ -55,8 +55,9 @@ class ActivityRepository extends ServiceEntityRepository
     {
         $thisMonth = $date->format('F');
         $thisyear = $date->format('Y');
-        $startOfMonth = new \dateTime('first day of' . $thisMonth . $thisyear);        
+        $startOfMonth = new \dateTime('first day of' . $thisMonth . $thisyear);      
         $endOfMonth = new \dateTime('last day of' . $thisMonth. $thisyear);
+        // dump($startOfMonth, $endOfMonth);die;
 
         return $this->createQueryBuilder('a')
 

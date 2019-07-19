@@ -32,9 +32,9 @@ class ActivityController extends AbstractController
     }
 
     
-    // /**
-    //  * @Route("/info", name="info")
-    //  */
+     /**
+      * @Route("/info", name="info")
+      */
     // public function info()
     // {        
     //     phpinfo();
@@ -47,7 +47,7 @@ class ActivityController extends AbstractController
     public function show(ActivityRepository $repository, Project $project)
     {               
         $currentMonth = new \DateTime('now');
-        $startProjectDate = $project->getStartDate();       
+        $startProjectDate = $project->getStartDate();             
         $endProjectDate = $project->getEndDate();      
         
         $intervalOneMonth = new \DateInterval('P1M');
@@ -58,7 +58,7 @@ class ActivityController extends AbstractController
         while ($dt < $endProjectDate){            
             $calendars[] = $dt;            
             $dt = $dt->add($intervalOneMonth);
-        }
+        }       
 
         //PolesByProject
         $PolesByProject =  $this->getDoctrine()
@@ -92,7 +92,7 @@ class ActivityController extends AbstractController
             $poleName = $pole->getname();            
             foreach($profiles as $profile){                
                 $profileName = $profile->getName();
-                foreach ($calendars as $date){
+                foreach ($calendars as $date){                    
                     $data = $repository->findOneByDateByProjectByProfileByPole($date, $project, $profile, $pole); 
                     $col2[] = $data ? $data: NULL;
                 }
@@ -109,17 +109,16 @@ class ActivityController extends AbstractController
         //Array Key of current Month
         foreach ($calendars as $calendar){
             $stringCalendars[] = $calendar->format('M-y');
-        }
-
+        }        
+        
         $key = array_search($currentMonth->format('M-y'), $stringCalendars)+1;
         $nbColumns = count($stringCalendars)+1;
-        // dump($nbColumns);die;
 
         return $this->render('activity/show.html.twig', [            
-            'calendars' => $stringCalendars,
+            'calendars' => $calendars,
             'key' => $key,
             'nbColumns' =>$nbColumns,
-            'currentMonth' => $currentMonth->format('M-y'),            
+            'currentMonth' => $currentMonth,            
             'projectName' =>$project->getName(),
             'poles' => $poles,
             'profiles' => $profiles,
@@ -276,8 +275,14 @@ class ActivityController extends AbstractController
             ]);
             
 
-        //Search if Activity exist           
-        $dateTime = \DateTime::createFromFormat('MMM Y', $date);
+        //Format Date
+        // $dateTime = \DateTime::createFromFormat('MMM Y', $date);
+        // $formater = \IntlDateFormatter::create('fr', null, null, null, null, 'MMM Y')->parse($date);        
+        $dateTime = \DateTime::createFromFormat('U', \IntlDateFormatter::create('fr', null, null, null, null, 'dd MM y')->parse("02 ". $date));
+        //$DateTime = $dateTime->modify('+ 1 month');
+
+
+        //Search if Activity exist         
         $activity = $repository->findOneByDateByProjectByProfileByPole($dateTime, $project, $profile, $pole);
         
         if ($activity) {
@@ -298,7 +303,7 @@ class ActivityController extends AbstractController
 
         $response = new Response(json_encode([
             'id' =>  $id,
-            'rank'=> $rank
+            'rank'=> $dateTime->format('m Y')
         ]));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
