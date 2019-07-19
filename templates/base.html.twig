@@ -83,7 +83,10 @@
         
         <script>
         $(document).ready(function() {
-            // function slide down
+
+            //function calculate
+
+            //function slide down
             $(".child").hide();            
             $(".poleclickable").click(function(){
                 $(this).closest('tr').nextUntil('.poleclickable').slideToggle();                
@@ -390,7 +393,6 @@
             var $addNewItem = $('<a href="#" class="btn btn-info mt-4">Ajouter un TJM</a>');        
 
             $(document).ready(function () {
-
                 
                 //getTheCollection Holder
                 $collectionHolder = $("#exp_list");           
@@ -403,7 +405,6 @@
                 $collectionHolder.find('.card').each(function () {
                     addRemoveButtton($(this));
                 })
-
 
                 //handle the click event for addNew item
                 $addNewItem.click(function (e) {
@@ -420,7 +421,6 @@
 
                 //get the index
                 var index = $collectionHolder.data('index')
-
 
                 //create the form
                 var newForm = prototype;
@@ -445,11 +445,6 @@
                 $addNewItem.before($card);
 
             }
-
-            //add new items (experience forms)
-
-
-            //remove them
 
             function addRemoveButtton($card) {
                 //create remove button
