@@ -31,7 +31,7 @@
             <span class="" id="currentMonth">{{ calendars.0|localizeddate('none', 'none', 'fr', null, 'MMM y') }}</span>
             <div class="btn btn-default next"><i class="fas fa-step-forward"></i></div>   
         </div>
-        <table id="example" class="display" style="width:100%">
+        <table id="activity" class="display" style="width:100%">
             <thead>           
                 <tr>
                     <th>Poles</th>                               
@@ -54,26 +54,24 @@
                     {% endfor %}
                     <td class="trash"><i class="fas fa-trash-alt"></i></td>                    
                 </tr>   
-                {% endfor %}  #}
-                {% set counter = 1 %}
-                {% set row = 'row'%}               
+                {% endfor %}  #}            
                 {% for pole in all %}
-                    <tr class = "poleclickable bg-secondary text-white">
-                        <td class>{{ pole.0 }}</td> 
-                            {% for calendar in calendars %} 
-                                <td></td>
-                            {% endfor %}
+                    <tr class = "poleclickable colSum bg-secondary text-white" id="firstRowClickable">
+                        <td class="pole">{{ pole.0 }}</td> 
+                        {% for calendar in calendars %} 
+                            <td class="colSum">-</td>
+                        {% endfor %}
                         <td><i class="fas fa-plus"></i></td>
                     </tr>
                     {% for rowProfile in pole.1 %}                                   
                     <tr class="child">
-                        <td>{{ rowProfile.0 }}</td>
+                        <td class="profile">{{ rowProfile.0 }}</td>
                         {% for activity in rowProfile.1%} 
-                                <td class="edit-for" id= {{ activity ? activity.id:'' }}>{{ activity ? activity.rank : '' }}</td>
+                                <td class="edit-for" id= {{ activity ? activity.id:'' }}><input value={{ activity ? activity.rank : 0 }}></td>
                         {% endfor %}
                         <td></td>                                           
                     </tr>
-                    {% endfor %}                                  
+                    {% endfor %}                                                                                                   
                 {% endfor %}
                 
 

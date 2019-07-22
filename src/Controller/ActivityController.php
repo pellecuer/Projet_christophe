@@ -249,8 +249,8 @@ class ActivityController extends AbstractController
      */
     public function update(Request $request, ActivityRepository $repository)
     {        
-        $id = $request->request->get('id');
-        $rank = $request->request->get('rank');
+        $id = trim($request->request->get('id'));
+        $rank = intval(trim($request->request->get('rank')));
         $date = trim($request->request->get('emptyMonth'));        
            
         $projectName =  trim($request->request->get('projectName'));        
@@ -303,7 +303,7 @@ class ActivityController extends AbstractController
 
         $response = new Response(json_encode([
             'id' =>  $id,
-            'rank'=> $rank
+            'rank'=> $activity->getDate()->format('m Y')
         ]));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
