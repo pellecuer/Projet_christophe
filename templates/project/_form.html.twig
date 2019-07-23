@@ -8,12 +8,9 @@
             {{ form_row(form.endDate) }}
             <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
             <a class="btn btn-secondary" href="{{ path('project_index') }}">Retour à  la liste</a>
-             
-            {# {{ include('project/_delete_form.html.twig') }} #}
-        </div>
-        <div class="col-md-6">
-            <div class="col-sm-12 offset-1" id="exp_list" data-prototype="{{form_widget(form.Tjms.vars.prototype)|e('html_attr')}}">        
-            {% for row in form.Tjms %}        
+
+            {% import _self as formMacros %}:
+            {% macro printTjms(TjmsForm) %}
             <div class="card mb-2">
                 <div class="card-body">
                     <div class="form-row">
@@ -30,6 +27,14 @@
                     </div>    
                 </div>
             </div>
+            {% endmacro %}
+             
+            {# {{ include('project/_delete_form.html.twig') }} #}
+        </div>
+        <div class="col-md-6">
+            <div class="col-sm-12 offset-1" id="exp_list" data-prototype="{{formMacros.printTjms(TjmsForm.Tjms.vars.prototype)|e('html_attr')}}">        
+            {% for row in form.Tjms %}
+                {{ formMacros.printTjms(TjmsForm) }}
             {% endfor %}
         </div>
     </div>    
