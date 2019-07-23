@@ -118,7 +118,7 @@
                     console.log("column: " + col);
                     sum = 0;
                     $($(arrayRowToCalculate).get().reverse()).each(function (rowindex) {
-                        $(this).find("td:nth-child(" + col + ")").each(function (rowindex) {
+                        $(this).find("td.edit-for:nth-child(" + col + ")").each(function (rowindex) {
                             newval = $(this).find("input").val();
                             console.log(newval);
                             if (isNaN(newval)) {
@@ -223,9 +223,9 @@
                     var emptyMonth = table.column(element.closest('td')).title();              
                     var projectName = $('#projectName').text();
                     var profileName = table.row(element.parents('tr')).data()[0];                                                                                    
-                    var firstRow = element.closest('tr').prevUntil('poleclickable').add('tr');
-                    var poleName = firstRow.html();
-                    alert(poleName);
+                    var firstRow = element.closest('tr').next().prevUntil('tr.poleclickable').last().prev('tr').children().first().css({"background-color": "red", "border": "2px solid red"});
+                    var poleName = firstRow.text();              
+                    
 
                             
                     $.ajax({
