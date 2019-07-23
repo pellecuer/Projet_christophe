@@ -114,7 +114,7 @@
                     });
                 });
                 // sum by col
-                for (col = 2; col < ncol + 2; col++) {
+                for (col = 2; col < ncol + 3; col++) {
                     console.log("column: " + col);
                     sum = 0;
                     $($(arrayRowToCalculate).get().reverse()).each(function (rowindex) {
@@ -123,6 +123,7 @@
                             console.log(newval);
                             if (isNaN(newval)) {
                                 $(this).html(sum);
+                                sum=0;
                             } else {
                                 sum += parseInt(newval);
                             }
@@ -222,8 +223,9 @@
                     var emptyMonth = table.column(element.closest('td')).title();              
                     var projectName = $('#projectName').text();
                     var profileName = table.row(element.parents('tr')).data()[0];                                                                                    
-                    var firstRow = element.closest('tr').prevUntil('poleclickable').last().children('td');
+                    var firstRow = element.closest('tr').prevUntil('poleclickable').add('tr');
                     var poleName = firstRow.html();
+                    alert(poleName);
 
                             
                     $.ajax({
