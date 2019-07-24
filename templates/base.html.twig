@@ -245,8 +245,9 @@
                             success: function (data)
                             {
                                 console.log(data);
-                                $('#response').html('Vous avez atrtibué la note de ' +'<span class="badge text-white bg-SkywalkerBlue" id="rank">'+ data.rank + '</span>');
-                                $('#response').addClass("visible alert alert-success").removeClass("invisible");                     
+                                var successMsg = 'Vous avez atrtibué la note de ' + data.rank;
+                                $('#response').text(successMsg); 
+                                $('#response').addClass("visible alert alert-success").removeClass("invisible"); 
                             }
                         });
                     } 
