@@ -88,6 +88,7 @@
             calculateForOneRowClickable();
             update();
             autocomplete();
+            
 
             //New function
             function calculateForOneRowClickable(){
@@ -193,49 +194,62 @@
                 $( ".profile" ).autocomplete({
                 source: profiles
                 });
-            };     
+            };
+
+             
             
                         
 
             //function
             function update(){
                 $("#activity tbody :input").on("change paste", function(e){
-
-                    //function(){
-                       
-                    //}
-
                     
-                    calculateForOneRowClickable()
-                    //Update on next, previous, enter                   
-                    var element = $(this);                   
-                    var id = element.attr('id');                    
-                    var rank = parseInt(element.val());                                                                                                                     
-                    var emptyMonth = table.column(element.closest('td')).title();              
-                    var projectName = $('#projectName').text();
-                    var profileName = table.row(element.parents('tr')).data()[0];                                                                                    
-                    var poleName = element.closest('tr').next().prevUntil('tr.poleclickable').last().prev('tr').children().first().text();
-                            
-                    $.ajax({
-                        url:'/activity/update',
-                        type: "POST",
-                        dataType: "json",
-                        data: {
-                            "rank": rank,
-                            "id": id,
-                            "emptyMonth": emptyMonth,                            
-                            "projectName": projectName,
-                            "profileName": profileName,
-                            "poleName": poleName
-                        },
-                        async: true,
-                        success: function (data)
-                        {
-                            console.log(data);
-                            $( '#rank' ).text(data.rank);
-                            $('#response').addClass("visible").removeClass("invisible");;                       
-                        }
-                    });
+                    //function input value Regex                    
+                    $('#response').removeClass("visible").addClass("invisible");
+
+                    var error = 0;
+                    var element = $(this);
+                    var rank = parseInt(element.val());
+                    var availableRank = [0,1,2,3,4,5,6,7,8,9];
+                    if (jQuery.inArray(parseInt(rank), availableRank) ==-1){
+                        var error = 1;
+                        var errorMsg = 'Vous devez entrer un chiffre compris entre 1 et 9';
+                        $('#response').text(errorMsg);
+                        $('#response').addClass("visible alert alert-danger").removeClass("invisible");
+                        $( this).focus();
+                        $( this).addClass("text-danger");
+
+
+                    } else { 
+                        calculateForOneRowClickable();
+                        //Update on next, previous, enter
+                        var id = element.attr('id');                                                                                        
+                        var emptyMonth = table.column(element.closest('td')).title();              
+                        var projectName = $('#projectName').text();
+                        var profileName = table.row(element.parents('tr')).data()[0];                                                                                    
+                        var poleName = element.closest('tr').next().prevUntil('tr.poleclickable').last().prev('tr').children().first().text();
+                                
+                        $.ajax({
+                            url:'/activity/update',
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                "rank": rank,
+                                "id": id,
+                                "emptyMonth": emptyMonth,                            
+                                "projectName": projectName,
+                                "profileName": profileName,
+                                "poleName": poleName
+                            },
+                            async: true,
+                            success: function (data)
+                            {
+                                console.log(data);
+                                $('#response').html('Vous avez atrtibué la note de ' +'<span class="badge text-white bg-SkywalkerBlue" id="rank">'+ data.rank + '</span>');
+                                $('#response').addClass("visible alert alert-success").removeClass("invisible");                     
+                            }
+                        });
+                    } 
                 })                    
             }
 

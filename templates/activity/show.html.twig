@@ -5,8 +5,7 @@
 {% block body %}
     <div class="container">
         {# Messages flash #}            
-        <div class="invisible" id="response">
-            <div class="alert alert-success">Vous avez attribué la note de <span class="badge badge-secondary" id="rank"></span> </div>
+        <div class="invisible" id="response">            
             {% for message in app.flashes('success') %}
             <div class="alert alert-success">
                 {{ message}}
