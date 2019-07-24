@@ -84,7 +84,7 @@
         <script>
         $(document).ready(function() {
 
-            //function calculate                          
+                                     
                 calculateForOneRowClickable();
                 update();
 
@@ -118,10 +118,10 @@
                     console.log("column: " + col);
                     sum = 0;
                     $($(arrayRowToCalculate).get().reverse()).each(function (rowindex) {
-                        $(this).find("td.edit-for:nth-child(" + col + ")").each(function (rowindex) {
+                        $(this).find("td:nth-child(" + col + ")").each(function (rowindex) {
                             newval = $(this).find("input").val();
                             console.log(newval);
-                            if (isNaN(newval)) {
+                            if ( (isNaN(newval)) && ($(this).hasClass("colSum")) ){
                                 $(this).html(sum);
                                 sum=0;
                             } else {
