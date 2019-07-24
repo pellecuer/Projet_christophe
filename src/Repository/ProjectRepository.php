@@ -46,8 +46,7 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function findLikeProjects(ProjectSearch $search)
     {
-        $query = $this->findAllDescQuery()->setMaxResults(5);        
-
+        $query = $this->findAllDescQuery()->setMaxResults(5);
         if ($search->getDate()) {
             
             $query = $query

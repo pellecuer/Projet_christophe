@@ -2,16 +2,16 @@
 <div class="jumbotron jumbotron-header">
     <div class="container mt-5" id="search-panel"> 
         {# <h1 class="mb-5 text-center"><i class="fas fa-search VaderBlue"></i><span class="ml-1 VaderBlue">Trouvez un projet</span></h1>             #}
-        {{ form_start(form) }}
+        {{ form_start(searchForm) }}
             <div class="row justify-content-center align-items-center">
                 <div class="col-sm-4">
-                    {{ form_row(form.date) }}
+                    {{ form_row(searchForm.date) }}
                 </div>
                 <div class="col-sm-1 mb-3 text-white">
                     <div>et / ou</div>
                 </div>
                 <div class="col-sm-4">
-                    {{ form_row(form.name) }}
+                    {{ form_row(searchForm.name) }}
                 </div>
                 <div class="col-auto">
                     <div class="form-group">
@@ -19,6 +19,6 @@
                     </div>
                 </div>
             </div>               
-        {{ form_end(form) }}
+        {{ form_end(searchForm) }}
     </div>
  </div>

@@ -3,3 +3,9 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     form_themes: ['bootstrap_4_layout.html.twig']
+
+    # form in  the layout
+    globals:
+        form_search: '@App\Service\SearchForm'
+
+
