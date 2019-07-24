@@ -28,7 +28,7 @@
         <h1 class="text-center VaderBlue">{{ projectName }}</h1>   
         <div class="mb-5 mx-5 text-right">
             <button type="button" class="btn btn-default previous"><i class="fas fa-step-backward"></i></button>
-            <span class="" id="currentMonth">{{ calendars.0|localizeddate('none', 'none', 'fr', null, 'MMM y') }}</span>
+            <span id="currentMonth">{{ calendars.0|localizeddate('none', 'none', 'fr', null, 'MMM y') }}</span>
             <div class="btn btn-default next"><i class="fas fa-step-forward"></i></div>   
         </div>
         <table id="activity" class="display" style="width:100%">
@@ -57,7 +57,7 @@
                 {% endfor %}  #}            
                 {% for pole in all %}
                     <tr class = "poleclickable colSum bg-secondary text-white" id="firstRowClickable">
-                        <td class="poleName">{{ pole.0 }}</td> 
+                        <td class="poleName bg-SkywalkerBlue">{{ pole.0 }}</td> 
                         {% for calendar in calendars %} 
                             <td class="colSum">-</td>
                         {% endfor %}
