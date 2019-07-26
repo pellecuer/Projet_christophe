@@ -13,7 +13,7 @@
         {# <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> #}
         
         {# <link rel="sylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> #}
-        <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+        <link rel="stylesheet" href="../assets/css/app.css">
         
         {% block stylesheets %}{% endblock %}
     </head>
@@ -21,7 +21,9 @@
         {# navbar #}
         <div class="container">
             <nav class="navbar fixed-top navbar-expand-lg justify-content-between navbar-white bg-VaderBlue">           
-                <a class="navbar-brand" href={{ path('home') }}> <img src="{{ asset('build/images/logo_amiltone.0d871272.png') }}" width="auto" height="50" alt=""></a>
+                <a class="navbar-brand" href={{ path('home') }}> 
+                {# <img src="{{ asset('build/images/logo_amiltone.0d871272.png') }}" width="auto" height="50" alt=""> #}
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -88,9 +90,9 @@
         <div class="footer custom-footer">
             <p class= "text-white text-center"> <i class="far fa-copyright"></i> <span class="ml-1">Amiltone 2019 - Tous droits réservés </span> </p>
         </div>
-        <script src="{{ asset('build/runtime.js') }}"></script>  
+        {# <script src="{{ asset('build/runtime.js') }}"></script>  
         <script src="{{ asset('build/app.js') }}"></script>
-        {{ encore_entry_script_tags('app') }}  
+        {{ encore_entry_script_tags('app') }}   #}
 
        <script src="https://code.jquery.com/jquery-3.3.1.js"></src>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
