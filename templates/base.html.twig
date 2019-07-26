@@ -3,16 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        {# <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> #}
         
         {# <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> #}
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/af-2.3.3/cr-1.5.0/fc-3.2.5/fh-3.1.4/kt-2.5.0/r-2.2.2/rg-1.1.0/rr-1.2.4/sc-2.0.0/sl-1.3.0/datatables.min.css"/>      
         {# <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.0/css/select.dataTables.min.css"> #}
 
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        {# <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> #}
         
-        <link rel="sylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        {# <link rel="sylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> #}
         <link rel="stylesheet" href="{{ asset('build/app.css') }}">
         
         {% block stylesheets %}{% endblock %}
@@ -87,7 +87,11 @@
         </div>
         <div class="footer custom-footer">
             <p class= "text-white text-center"> <i class="far fa-copyright"></i> <span class="ml-1">Amiltone 2019 - Tous droits réservés </span> </p>
-        </div>        
+        </div>
+        <script src="{{ asset('build/runtime.js') }}"></script>  
+        <script src="{{ asset('build/app.js') }}"></script>
+        {{ encore_entry_script_tags('app') }}  
+
        <script src="https://code.jquery.com/jquery-3.3.1.js"></src>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -101,7 +105,7 @@
         {# <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
         <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script> #}
 
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+        {# <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  #}
 
         
                 
@@ -407,6 +411,83 @@
         });
         </script>
         <script>
+        $(document).ready(function() {
+            var $collectionHolder;
+
+            //add new items (experience forms)
+            var $addNewItem = $('<a href="#" class="btn btn-info mt-4">Ajouter un TJM</a>');
+                
+                //getTheCollection Holder
+                $collectionHolder = $("#exp_list");           
+
+                //Append the add new item to the collection holder
+                $collectionHolder.append($addNewItem);
+                $collectionHolder.data('index', $collectionHolder.find('.card').length)
+
+                //add remove button to existing items
+                $collectionHolder.find('.card').each(function () {
+                    addRemoveButtton($(this));
+                })
+
+                //handle the click event for addNew item
+                $addNewItem.click(function (e) {
+                    e.preventDefault();
+                    //create a new form and append it to collectionHolder
+                    addNewForm();
+                })
+
+        
+
+            function addNewForm() {
+                //getting the prototype
+                var prototype = $collectionHolder.data('prototype');
+
+                //get the index
+                var index = $collectionHolder.data('index')
+
+                //create the form
+                var newForm = prototype;
+
+                newForm = newForm.replace(/_name_/g.index);
+
+
+                $collectionHolder.data('index', index + 1);
+                //create the card
+                var $card = $("<div class='card'><div class='card-heading'></div></div>");
+
+                //create the card body and append the form to it
+                var $cardBody = $("<div class='card-body'></div>").append(newForm);
+
+                //append the body to the card
+                $card.append($cardBody);
+
+                //append the remove button to the new card
+                addRemoveButtton($card);
+
+                //append the $card to the addNewItem
+                $addNewItem.before($card);
+
+            }
+
+            function addRemoveButtton($card) {
+                //create remove button
+                var $removeButton = $("<a href='#' class='btn btn-danger'>Supprimer</a>");
+
+                //appending the remove button to the card footer
+                var $cardFooter = $("<div class='card-footer'></div>").append($removeButton);
+
+                //handle the click eventg of the remove button
+                $removeButton.click(function (e) {
+                    e.preventDefault();
+                    $(e.target).parents('.card').slideUp(1000, function () {
+                        $(this).remove();
+                    })
+                });
+
+                //append the footer to the card
+                $card.append($cardFooter);
+            }
+        });
         </script>    
     {% block javascripts %}{% endblock %}
     </body>
