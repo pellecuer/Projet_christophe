@@ -13,16 +13,20 @@
         {# <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> #}
         
         {# <link rel="sylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> #}
-        <link rel="stylesheet" href="../assets/css/app.css">
         
-        {% block stylesheets %}{% endblock %}
+        
+        
+        {% block stylesheets %}
+         {{ encore_entry_link_tags('app') }}
+         {# <link rel="stylesheet" href="{{ asset('build/app.css') }}"> #}
+        {% endblock %}
     </head>
     <body>
         {# navbar #}
         <div class="container">
             <nav class="navbar fixed-top navbar-expand-lg justify-content-between navbar-white bg-VaderBlue">           
                 <a class="navbar-brand" href={{ path('home') }}> 
-                {# <img src="{{ asset('build/images/logo_amiltone.0d871272.png') }}" width="auto" height="50" alt=""> #}
+                <img src="{{ asset('build/images/logo_amiltone.0d871272.png') }}" width="auto" height="50" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,9 +94,14 @@
         <div class="footer custom-footer">
             <p class= "text-white text-center"> <i class="far fa-copyright"></i> <span class="ml-1">Amiltone 2019 - Tous droits réservés </span> </p>
         </div>
-        {# <script src="{{ asset('build/runtime.js') }}"></script>  
-        <script src="{{ asset('build/app.js') }}"></script>
-        {{ encore_entry_script_tags('app') }}   #}
+
+        {% block javascripts %}
+            {# <script src="{{ asset('build/runtime.js') }}"></script>   #}
+            {# <script src="{{ asset('build/app.js') }}"></script> #}
+            {# <script src="{{ asset('build/collection.js') }}"></script> #}
+            {{ encore_entry_script_tags('app') }}     
+        {% endblock %}
+        
 
        <script src="https://code.jquery.com/jquery-3.3.1.js"></src>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -413,84 +422,11 @@
         });
         </script>
         <script>
-        $(document).ready(function() {
-            var $collectionHolder;
-
-            //add new items (experience forms)
-            var $addNewItem = $('<a href="#" class="btn btn-info mt-4">Ajouter un TJM</a>');
-                
-                //getTheCollection Holder
-                $collectionHolder = $("#exp_list");           
-
-                //Append the add new item to the collection holder
-                $collectionHolder.append($addNewItem);
-                $collectionHolder.data('index', $collectionHolder.find('.card').length)
-
-                //add remove button to existing items
-                $collectionHolder.find('.card').each(function () {
-                    addRemoveButtton($(this));
-                })
-
-                //handle the click event for addNew item
-                $addNewItem.click(function (e) {
-                    e.preventDefault();
-                    //create a new form and append it to collectionHolder
-                    addNewForm();
-                })
-
+        </script>   
+        <script>
         
+        </script>
 
-            function addNewForm() {
-                //getting the prototype
-                var prototype = $collectionHolder.data('prototype');
-
-                //get the index
-                var index = $collectionHolder.data('index')
-
-                //create the form
-                var newForm = prototype;
-
-                newForm = newForm.replace(/_name_/g.index);
-
-
-                $collectionHolder.data('index', index + 1);
-                //create the card
-                var $card = $("<div class='card'><div class='card-heading'></div></div>");
-
-                //create the card body and append the form to it
-                var $cardBody = $("<div class='card-body'></div>").append(newForm);
-
-                //append the body to the card
-                $card.append($cardBody);
-
-                //append the remove button to the new card
-                addRemoveButtton($card);
-
-                //append the $card to the addNewItem
-                $addNewItem.before($card);
-
-            }
-
-            function addRemoveButtton($card) {
-                //create remove button
-                var $removeButton = $("<a href='#' class='btn btn-danger'>Supprimer</a>");
-
-                //appending the remove button to the card footer
-                var $cardFooter = $("<div class='card-footer'></div>").append($removeButton);
-
-                //handle the click eventg of the remove button
-                $removeButton.click(function (e) {
-                    e.preventDefault();
-                    $(e.target).parents('.card').slideUp(1000, function () {
-                        $(this).remove();
-                    })
-                });
-
-                //append the footer to the card
-                $card.append($cardFooter);
-            }
-        });
-        </script>    
-    {% block javascripts %}{% endblock %}
+    
     </body>
 </html>

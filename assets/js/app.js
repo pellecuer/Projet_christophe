@@ -19,6 +19,6 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 //  require('@fortawesome/fontawesome-free/js/all.js');
  require('popper.js');
  require('bootstrap');
-//  require('./calculate.js');
-// import('./collection.js');
+ require('./collection.js');
+ require('./calculate.js');
  // require('datatables');
