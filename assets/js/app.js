@@ -22,8 +22,9 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
  require('popper.js');
  require('bootstrap');
  require('./collection.js');
- require( 'datatables.net-dt' )();
- require( 'datatables.net-select-dt' )();
+ require( 'datatables.net-dt')();
+ import('./columnTitle.js');
+ require( 'datatables.net-select-dt')();
  require('@fortawesome/fontawesome-free/js/all.js');
 
  
