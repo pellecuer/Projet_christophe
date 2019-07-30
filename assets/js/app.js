@@ -6,8 +6,8 @@
  */
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// var $ = require('jquery');
-import $ from 'jquery';
+var $ = require('jquery');
+// import $ from 'jquery';
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
  // any CSS you require will output into a single css file (app.css in this case)
@@ -16,6 +16,8 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
  import ('datatables.net-dt/css/jquery.dataTables.css');
  import ('datatables.net-select-dt/css/select.dataTables.min.css');
  import('../css/app.css');
+ import('../css/algolia-autocomplete.css');
+ 
  
 
 // lib
@@ -26,6 +28,8 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
  import('./columnTitle.js');
  require( 'datatables.net-select-dt')();
  require('@fortawesome/fontawesome-free/js/all.js');
+ require('autocomplete.js/dist/autocomplete.jquery.js');
+ require('./algolia-autocomplete.js');
 
  
  //main 

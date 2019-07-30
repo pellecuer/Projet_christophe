@@ -25,7 +25,8 @@ class ProjectSearchType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Nom du projet',
-                    'id' => 'searchNameInput'
+                    'id' => 'searchNameInput',
+                    'class' => 'js-project-autocomplete'
                 ],                
                 'trim' => true
             ])
