@@ -77,6 +77,26 @@ class HomeController extends AbstractController
 
     }
 
+    /**
+     * @Route("/autoCompleteProject", name="auto_complete_projects", methods="GET")
+     * @Method({"POST"})
+     */
+    public function autoCompleteProject(ProjectRepository $repository)
+    {
+        $projects= $repository->findAllNameAlphabetical();
+        $projectNames = [];
+        foreach($projects as $project){
+            $projectNames[] = $project->getName();
+        }
+        return $this->json(
+            [ 
+                'projectsName' => $projectNames,              
+            ]
+        );
+    }
+
+
+
 
 
 }

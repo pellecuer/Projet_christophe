@@ -73,6 +73,14 @@ class ProjectRepository extends ServiceEntityRepository
             ->orderBy('p.startDate', 'DESC');
     }
 
+    public function findAllNameAlphabetical()
+    {
+        return $this->createQueryBuilder('p')            
+            ->orderBy('p.name', 'ASC')
+            ->setMaxResults(20)
+            ->getQuery()->getResult();
+    }
+
     
     
     
