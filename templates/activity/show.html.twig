@@ -19,7 +19,7 @@
     <div class="invisible" id="nbColumns">{{ nbColumns }}</div>
     <div class="invisible" id="projectName">{{ projectName }}</div>
 
-    {# datatable and bottoms #}
+    {# datatable #}
     <div class="container">
         <h1 class="text-center VaderBlue">{{ projectName }}</h1>   
         <div class="mb-5 mx-5 text-right">
@@ -37,20 +37,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                {# {% for row in activities %}
-                <tr>
-                    <td class="profile">{{ row.0 }}</td>                         
-                    {% for Activity in row.1 %}
-                        {% if Activity %}
-                            <td class="edit-for" id = "{{ Activity.id }}">{{ Activity.rank }}</td>
-                        {% else %}
-                            <td class="edit-for" id = "0" ></td>
-                        {% endif %}
-                    {% endfor %}
-                    <td class="trash"><i class="fas fa-trash-alt"></i></td>                    
-                </tr>   
-                {% endfor %}  #}            
+            <tbody>        
                 {% for pole in all %}
                     <tr class = "poleclickable colSum bg-secondary text-white" id="firstRowClickable">
                         <td class="poleName bg-SkywalkerBlue">{{ pole.0 }}</td> 
@@ -69,13 +56,7 @@
                     </tr>
                     {% endfor %}                                                                                                   
                 {% endfor %}
-                
-
-
-
             </tbody>            
-        </table>
-        <button class="btn btn-default addRow mb-2" type="submit"><i class="fa fa-plus" aria-hidden="true"></i></button>    
+        </table>           
     </div>
-
 {% endblock %}

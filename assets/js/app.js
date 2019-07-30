@@ -32,14 +32,43 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
  $(document).ready(function() {    
     //Initialize                       
     calculateForOneRowClickable();
-    update();
-    // autocomplete();
+    update();    
 
     //Initialize var DataTable
     var table = $('#activity').DataTable({                
             //ajax:'/ajax',
             "ordering": false,
-            "paging": false            
+            "paging": false,
+            "dom": 'lrtip',
+
+            //translation
+            "language": {
+                "sProcessing": "Traitement en cours ...",
+                "sLengthMenu": "Afficher _MENU_ lignes",
+                "sZeroRecords": "Aucun résultat trouvé",
+                "sEmptyTable": "Aucune donnée disponible",
+                "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+                "sInfoEmpty": "Aucune ligne affichée",
+                "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+                "sInfoPostFix": "",
+                "sSearch": "Chercher:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Chargement...",
+                "oPaginate": {
+                    "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+                },
+                "oAria": {
+                    "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+                },
+                "select": {
+                    "rows": {
+                        _: "%d lignes séléctionnées",
+                        0: "Aucune ligne séléctionnée",
+                        1: "1 ligne séléctionnée"
+                    }
+                }
+            }            
     });
 
      //initialization 11 colums array
@@ -188,7 +217,7 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
                         console.log(data);
                         var successMsg = 'Vous avez atrtibué la note de ' + data.rank;
                         $('#response').text(successMsg); 
-                        $('#response').addClass("visible alert alert-success").removeClass("invisible"); 
+                        $('#response').removeClass("invisible alert alert-danger").addClass("visible alert alert-success"); 
                     }
                 });
             } 
