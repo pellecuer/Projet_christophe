@@ -16,10 +16,15 @@ class TjmType extends AbstractType
     {
         $builder            
             ->add('pole', EntityType::class, [
-                'class' => Pole::class
+                'class' => Pole::class,
+                'choice_label' => function(Pole $pole) {
+                    return sprintf('(%d) %s', $pole->getId(), $pole->getName());
+                },
+                'placeholder' => 'Choississez un pole'
             ])
             ->add('amount', null, [
-                'label' => 'Montant'
+                'label' => 'Montant',
+                'attr' => ['placeholder' => 'Entrez un chiffre'],
             ])                      
         ;
     }
