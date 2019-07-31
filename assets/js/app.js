@@ -32,7 +32,7 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
  require('./algolia-autocomplete.js');
 
  
- //main 
+ //main
  $(document).ready(function() {    
     //Initialize                       
     calculateForOneRowClickable();
