@@ -36,7 +36,8 @@ class ProjectSearchType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Nom du projet',
                     'id' => 'searchNameInput',
-                    'class' => 'js-project-autocomplete'
+                    'class' => 'js-project-autocomplete',
+                    'data-autocomplete-url' => $this->router->generate('auto_complete_projects')
                 ],                
                 'trim' => true
             ])
@@ -48,10 +49,7 @@ class ProjectSearchType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ProjectSearch::class,
             'method' => 'get',
-            'csrf_protection' =>false,
-            'attr' => [
-                'data-autocomplete-url' => $this->router->generate('auto_complete_projects')
-            ]
+            'csrf_protection' =>false
         ]);
     }
 

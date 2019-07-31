@@ -6,13 +6,13 @@ $(document).ready(function() {
             {
                 source: function(query, cb) {
                     $.ajax({
-                        url: 'autoCompleteProject'+'?query='+query
+                        url: autocompleteUrl+'?query='+query
                     }).then(function(result) {
                         cb(result.data);
                     });
                 },
                 displayKey: 'name',
-                debounce: 200 // only request every 1/2 second
+                debounce: 50 // only request every 1000/50 second
             }
         ])    
     });
