@@ -1,3 +1,6 @@
+# Local
+locale: fr_FR.UTF-8
+
 # Général
 name: Nom
 code: Code
