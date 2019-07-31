@@ -9,7 +9,6 @@ use App\Entity\Project;
 use App\Repository\ProjectRepository;
 use App\Entity\ProjectSearch;
 use App\Form\ProjectSearchType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use App\Service\SearchForm;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,8 +42,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/search", name="projectSearch")
-     * @Method({"POST"})
+     * @Route("/search", name="projectSearch", methods={"GET", "POST"})
      */
     public function searchForm(ProjectRepository $repository, SearchForm $searchForm, Request $request)
     {
@@ -78,8 +76,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/autoCompleteProject", name="auto_complete_projects", methods="GET")
-     * @Method({"POST"})
+     * @Route("/autoCompleteProject", name="auto_complete_projects", methods={"GET", "POST"})
      */
     public function autoCompleteProject(ProjectRepository $repository, Request $request)
     {
