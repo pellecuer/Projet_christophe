@@ -101,30 +101,4 @@ class ProjectController extends AbstractController
 
         return $this->redirectToRoute('project_index');
     }
-
-
-    
-    /**
-     * @Route("/search", name="search_project", methods="GET")
-     */
-    public function searchAutoComplete(Request $request, Project $project, ProjectRepository $projectRepository)
-    {        
-        $searchValue = trim($request->request->get('term'));              
-
-        $projects = $projectRepository->findlikeSearchValue($searchValue);
-        $projectNames = [];
-        foreach ($projects as $project) {
-            $projectNames[] = $project->GetName();
-        }      
-
-        return $this->json(
-            [ 
-                'data' => $projectNames,              
-            ]
-        );        
-
-
-
-    }
-        
 }

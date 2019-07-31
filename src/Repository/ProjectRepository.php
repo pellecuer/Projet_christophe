@@ -22,22 +22,6 @@ class ProjectRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Project::class);
     }
-
-    
-    /**
-    * @return Project[] Returns an array of Project objects
-    */
-    public function findlikeSearchValue($searchValue)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.name LIKE :searchValue')
-            ->setParameter('searchValue', '%'.$searchValue.'%')
-            ->orderBy('p.name', 'ASC')            
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    
     
     /**
      * findProjectsByTerms
@@ -73,13 +57,7 @@ class ProjectRepository extends ServiceEntityRepository
             ->orderBy('p.startDate', 'DESC');
     }
 
-    public function findAllAlphabetical()
-    {
-        return $this->createQueryBuilder('p')            
-            ->orderBy('p.name', 'ASC')
-            ->setMaxResults(20)
-            ->getQuery()->getResult();
-    }
+    
 
     public function findAllMatching(string $query, int $limit = 10)
     {
