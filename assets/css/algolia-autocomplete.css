@@ -10,9 +10,10 @@
   .algolia-autocomplete .aa-dropdown-menu {
     width: 100%;
     /* skywalkerblue */
-    background-color: #2f57a3;
+    background-color: #293286;
     border: 1px solid #999;
     border-top: none;
+    color:white;
   }
   .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
     cursor: pointer;

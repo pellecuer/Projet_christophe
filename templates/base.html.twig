@@ -42,39 +42,31 @@
                             <a class="nav-item nav-link text-white" href={{path('tjm_index')}}><i class="far fa-clock"></i><span class="ml-1">TJM</span></a>                   
                         </li>
                     </ul>                        
-                </div>            
+                </div>
+                {# Search #}
+                {% set searchForm = form_search.getForm().createView() %}
+                <div class="pt-3 mr-5" id="search-panel"> 
+                    {{ form_start(searchForm) }}
+                        <div class="form-row">
+                            <div class="col">
+                                {{ form_row(searchForm.date) }}
+                            </div>
+                            <span class="navbar-text text-white mx-1">
+                                et / ou
+                            </span>
+                            <div class="col">
+                                {{ form_row(searchForm.name) }}
+                            </div>
+                            <div class="col-auto">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search text-white"></i><span class="ml-1 text-white">Rechercher</span></button>
+                                </div>
+                            </div>
+                        </div>               
+                    {{ form_end(searchForm) }}
+                </div>                  
             </nav>
         </div>
-        
-        {# Search #} 
-        {% set searchForm = form_search.getForm().createView() %}  
-        <div class="jumbotron jumbotron-header ">
-            <div class="container mt-5" id="search-panel"> 
-                {# <h1 class="mb-5 text-center"><i class="fas fa-search VaderBlue"></i><span class="ml-1 VaderBlue">Trouvez un projet</span></h1>             #}
-                {{ form_start(searchForm) }}
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-sm-4">
-                            {{ form_row(searchForm.date) }}
-                        </div>
-                        <div class="col-sm-1 mb-3 text-white">
-                            <div>et / ou</div>
-                        </div>
-                        <div class="col-sm-4">
-                            {{ form_row(searchForm.name) }}
-                        </div>
-                        <div class="col-auto">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-search"><i class="fas fa-search text-white"></i><span class="ml-1 text-white">Rechercher</span></button>
-                            </div>
-                        </div>
-                    </div>               
-                {{ form_end(searchForm) }}
-            </div>
-        </div>
-        
-
-
-        
         <div class="mx-5 conteneurAll"> 
             {% block body %}{% endblock %}
         </div>

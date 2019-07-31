@@ -69,8 +69,16 @@ hr {
 
 .conteneurAll {
   min-height: 1500px;
-  margin-top: 6em;
+  margin-top: 15em;
 }
+
+
+/* Titles */
+h1 {
+  /* ValderBlue */
+  color: #293286;
+}
+
 
 
 
@@ -93,8 +101,8 @@ hr {
 }
 .btn-search {
   /* purpleHaze */
-  background-color: #293286;
-  border-color: #293286;
+  background-color: #2f57a3;
+  border-color: #2f57a3;
   color: #fff;
 }
 
@@ -109,17 +117,6 @@ hr {
 }
 
 /* Navbar */
-/* .navbar {
-   margin-bottom: 0;
-   background-color: #2f57a3;
-   z-index: 9999;
-   border: 0;
-   font-size: 1.2em !important;
-   line-height: 1.42857143 !important;
-   letter-spacing: 4px;
-   border-radius: 0;
- }
- */
  .navbar li a, .navbar .navbar-brand {
    color: #fff !important;
  }
