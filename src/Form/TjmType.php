@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Tjm;
 use App\Entity\Pole;
 use App\Entity\Project;
+use App\Repository\PoleRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,9 +18,11 @@ class TjmType extends AbstractType
         $builder            
             ->add('pole', EntityType::class, [
                 'class' => Pole::class,
-                'choice_label' => function(Pole $pole) {
-                    return sprintf('(%d) %s', $pole->getId(), $pole->getName());
+                'query_builder' => function (PoleRepository $repository) {
+                    return $repository->createQueryBuilder('p')
+                        ->orderBy('p.name', 'ASC');
                 },
+                'choice_label' => 'name',
                 'placeholder' => 'Choississez un pole'
             ])
             ->add('amount', null, [
