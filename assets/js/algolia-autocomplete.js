@@ -1,18 +1,18 @@
 $(document).ready(function() {
     $('.js-project-autocomplete').each(function() {
-        var autocompleteUrl = $(this).data('autocomplete-url');
+        var autocompleteUrl = $(this).data('autocomplete-url');       
         hint: false
         $(this).autocomplete({hint: false}, [
             {
                 source: function(query, cb) {
                     $.ajax({
-                        url: autocompleteUrl
-                    }).then(function(data) {
-                        cb(data.projectsName);
+                        url: 'autoCompleteProject'+'?query='+query
+                    }).then(function(result) {
+                        cb(result.data);
                     });
                 },
-                displayKey: 'nom',
-                debounce: 500 // only request every 1/2 second
+                displayKey: 'name',
+                debounce: 200 // only request every 1/2 second
             }
         ])    
     });

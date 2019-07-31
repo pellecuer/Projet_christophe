@@ -3,19 +3,20 @@
 namespace App\Form;
 
 use App\Entity\ProjectSearch;
+use App\Repository\ProjectRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ProjectSearchType extends AbstractType
 {
 
     private $router;
     
-    public function __construct(RouterInterface $router)
+    public function __construct(ProjectRepository $projectRepository, UrlGeneratorInterface $router)
     {
         $this->router = $router;
     }

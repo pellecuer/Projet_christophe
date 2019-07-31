@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 /**
  * @UniqueEntity(fields="name", message="Cet nom éxiste déjà")
  * @UniqueEntity(fields="code", message="Cet code éxiste déjà")
@@ -25,6 +27,7 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Groups("main")
      */
     private $name;
 

@@ -73,11 +73,21 @@ class ProjectRepository extends ServiceEntityRepository
             ->orderBy('p.startDate', 'DESC');
     }
 
-    public function findAllNameAlphabetical()
+    public function findAllAlphabetical()
     {
         return $this->createQueryBuilder('p')            
             ->orderBy('p.name', 'ASC')
             ->setMaxResults(20)
+            ->getQuery()->getResult();
+    }
+
+    public function findAllMatching(string $query, int $limit = 10)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.name LIKE :query')
+            ->setParameter('query', '%'.$query.'%')            
+            ->orderBy('p.name', 'ASC')
+            ->setMaxResults($limit)
             ->getQuery()->getResult();
     }
 
