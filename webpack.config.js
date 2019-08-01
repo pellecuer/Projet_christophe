@@ -68,7 +68,7 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
     .addPlugin(new CopyPlugin([
-        { from: './assets/static', to: 'static' },        
+        { from: './assets/static', to: 'static' },       
     ]))
 
     // uncomment if you use API Platform Admin (composer req api-admin)

@@ -30,7 +30,6 @@ console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
  require('@fortawesome/fontawesome-free/js/all.js');
  require('autocomplete.js/dist/autocomplete.jquery.js');
  require('./algolia-autocomplete.js');
-
  
  //main
  $(document).ready(function() {    

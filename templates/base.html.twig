@@ -9,8 +9,8 @@
         {% endblock %}
     </head>
     <body>
-        {# navbar #}
-        <div class="container">
+        <div class="container container-main">                  
+            {# navbar #}
             <nav class="navbar fixed-top navbar-expand-lg justify-content-between navbar-white bg-VaderBlue">           
                 <a class="navbar-brand" href={{ path('home') }}>
                     <img src="{{ asset('build/static/logoAmiltone.svg') }}" alt="logo amiltone"  width="200" height="auto" class="d-inline-block align-middle" alt="">
@@ -57,7 +57,7 @@
                             <div class="col">
                                 {{ form_row(searchForm.name) }}
                             </div>
-                            <div class="col-auto">
+                            <div class="col mr-5">
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-default"><i class="fas fa-search text-white"></i><span class="ml-1 text-white">Rechercher</span></button>
                                 </div>
@@ -67,7 +67,8 @@
                 </div>                  
             </nav>
         </div>
-        <div class="mx-5 conteneurAll"> 
+        
+        <div class="mx-5 conteneurAll">            
             {% block body %}{% endblock %}
         </div>
         <div class="footer custom-footer">
