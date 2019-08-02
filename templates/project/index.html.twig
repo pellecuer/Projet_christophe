@@ -16,6 +16,7 @@
                 <th>Date de fin</th>
                 <th>Voir</th>
                 <th>Editer</th>
+                <th>Supprimer</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,9 @@
                 </td>
                 <td>
                     <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit PurpleHaze"></i></a>
+                </td>
+                <td>
+                    {{ include('project/_delete_form.html.twig')}}
                 </td>
             </tr>
         {% else %}
