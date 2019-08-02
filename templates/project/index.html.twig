@@ -28,10 +28,10 @@
                 <td>{{ project.startDate ? project.startDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ project.endDate ? project.endDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('project_show', {'id': project.id}) }}"><i class="fas fa-eye PurpleHaze"></i></a>                    
+                    <button class="btn btn-sm" href="{{ path('project_show', {'id': project.id}) }}"><i class="fas fa-eye PurpleHaze"></i></a>                    
                 </td>
                 <td>
-                    <a href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit PurpleHaze"></i></a>
+                    <button class="btn btn-sm" href="{{ path('project_edit', {'id': project.id}) }}"><i class="fas fa-edit PurpleHaze"></i></a>
                 </td>
                 <td>
                     {{ include('project/_delete_form.html.twig')}}
